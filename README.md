@@ -17,11 +17,17 @@ iot-project-kit/
     │   └── assets/
     │       └── led-blinking.png       # Circuit diagram
     │
-    └── 02-traffic-light/              # Project 02: Traffic Light Controller
+    ├── 02-traffic-light/              # Project 02: Traffic Light Controller
+    │   ├── README.md                  # Project documentation & schematic
+    │   ├── 02_traffic_light.ino        # Arduino source code sketch
+    │   └── assets/
+    │       └── traffic-light.png      # Circuit diagram
+    │
+    └── 03-rock-paper-scissors/        # Project 03: Rock Paper Scissors OLED Game
         ├── README.md                  # Project documentation & schematic
-        ├── 02_traffic_light.ino        # Arduino source code sketch
+        ├── 03_rock_paper_scissors.ino # Arduino source code sketch
         └── assets/
-            └── traffic-light.png      # Circuit diagram
+            └── push-button-game.png   # Circuit diagram
 ```
 
 ---
@@ -32,13 +38,15 @@ iot-project-kit/
 | :-: | :--- | :--- | :-: | :-: | :-: |
 | **01** | **LED Blinking** | Arduino Uno, LED, 220Ω Resistor | `Easy` | ✅ Completed | [View Guide 📖](projects/01-led-blinking/) |
 | **02** | **Traffic Light Controller** | Arduino Uno, 3-LED Traffic Light Module | `Easy` | ✅ Completed | [View Guide 📖](projects/02-traffic-light/) |
+| **03** | **Rock Paper Scissors Game** | Arduino Uno, SSD1306 OLED, 3x Buttons | `Medium` | ✅ Completed | [View Guide 📖](projects/03-rock-paper-scissors/) |
 
 ---
 
 ## 🛠️ Hardware Requirements
 
 - **Microcontroller**: Arduino Uno R3 / Nano / ESP32
-- **Basic Components**: Breadboard, LEDs, Resistors (220Ω, 1kΩ, 10kΩ), Jumper Wires
+- **Displays**: 0.96" I2C OLED (SSD1306)
+- **Basic Components**: Breadboard, Push Buttons, LEDs, Resistors (220Ω, 10kΩ), Jumper Wires
 - **Software**: Arduino IDE / PlatformIO / Web Editor
 
 ---
@@ -49,10 +57,11 @@ iot-project-kit/
    ```bash
    git clone https://github.com/Pavank5214/iot-project-kit.git
    ```
-2. Navigate to any project folder under `projects/` (e.g., `projects/02-traffic-light/`).
+2. Navigate to any project folder under `projects/` (e.g., `projects/03-rock-paper-scissors/`).
 3. Open the `.ino` file in **Arduino IDE**.
-4. Wire your circuit according to the provided `README.md` diagram.
-5. Select your board (`Tools -> Board -> Arduino Uno`) and COM port, then click **Upload**.
+4. Install required libraries if noted in the project `README.md` (e.g. `Adafruit_SSD1306`).
+5. Wire your circuit according to the provided `README.md` diagram.
+6. Select your board (`Tools -> Board -> Arduino Uno`) and COM port, then click **Upload**.
 
 ---
 
