@@ -11,11 +11,17 @@ iot-project-kit/
 │
 ├── README.md                          # Main repository overview & index
 └── projects/                          # Individual IoT project guides
-    └── 01-led-blinking/               # Project 01: LED Blinking
+    ├── 01-led-blinking/               # Project 01: LED Blinking
+    │   ├── README.md                  # Project documentation & schematic
+    │   ├── 01_led_blinking.ino        # Arduino source code sketch
+    │   └── assets/
+    │       └── led-blinking.png       # Circuit diagram
+    │
+    └── 02-traffic-light/              # Project 02: Traffic Light Controller
         ├── README.md                  # Project documentation & schematic
-        ├── 01_led_blinking.ino        # Arduino source code sketch
+        ├── 02_traffic_light.ino        # Arduino source code sketch
         └── assets/
-            └── led-blinking.png       # Circuit diagram
+            └── traffic-light.png      # Circuit diagram
 ```
 
 ---
@@ -25,6 +31,7 @@ iot-project-kit/
 | # | Project Name | Hardware Used | Difficulty | Status | Documentation |
 | :-: | :--- | :--- | :-: | :-: | :-: |
 | **01** | **LED Blinking** | Arduino Uno, LED, 220Ω Resistor | `Easy` | ✅ Completed | [View Guide 📖](projects/01-led-blinking/) |
+| **02** | **Traffic Light Controller** | Arduino Uno, 3-LED Traffic Light Module | `Easy` | ✅ Completed | [View Guide 📖](projects/02-traffic-light/) |
 
 ---
 
@@ -42,7 +49,7 @@ iot-project-kit/
    ```bash
    git clone https://github.com/Pavank5214/iot-project-kit.git
    ```
-2. Navigate to any project folder under `projects/` (e.g., `projects/01-led-blinking/`).
+2. Navigate to any project folder under `projects/` (e.g., `projects/02-traffic-light/`).
 3. Open the `.ino` file in **Arduino IDE**.
 4. Wire your circuit according to the provided `README.md` diagram.
 5. Select your board (`Tools -> Board -> Arduino Uno`) and COM port, then click **Upload**.
