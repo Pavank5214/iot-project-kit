@@ -29,11 +29,17 @@ iot-project-kit/
     │   └── assets/
     │       └── push-button-game.png   # Circuit diagram
     │
-    └── 04-electronic-dice/            # Project 04: Electronic Die with Touch Sensor
+    ├── 04-electronic-dice/            # Project 04: Electronic Die with Touch Sensor
+    │   ├── README.md                  # Project documentation & schematic
+    │   ├── 04_electronic_dice.ino      # Arduino source code sketch
+    │   └── assets/
+    │       └── dice.png               # Circuit diagram
+    │
+    └── 05-rgb-mood-lamp/              # Project 05: RGB Mood Lamp / Smooth Color Fader
         ├── README.md                  # Project documentation & schematic
-        ├── 04_electronic_dice.ino      # Arduino source code sketch
+        ├── 05_rgb_mood_lamp.ino        # Arduino source code sketch
         └── assets/
-            └── dice.png               # Circuit diagram
+            └── mood-lamp.png          # Circuit diagram
 ```
 
 ---
@@ -46,6 +52,7 @@ iot-project-kit/
 | **02** | **Traffic Light Controller** | Arduino Uno, 3-LED Traffic Light Module | `Easy` | ✅ Completed | [View Guide 📖](projects/02-traffic-light/) |
 | **03** | **Rock Paper Scissors Game** | Arduino Uno, SSD1306 OLED, 3x Buttons | `Medium` | ✅ Completed | [View Guide 📖](projects/03-rock-paper-scissors/) |
 | **04** | **Electronic Die** | Arduino Uno, 7-Seg Display, Touch Sensor | `Easy` | ✅ Completed | [View Guide 📖](projects/04-electronic-dice/) |
+| **05** | **RGB Mood Lamp** | Arduino Uno, 4-Pin RGB LED, Resistors | `Easy` | ✅ Completed | [View Guide 📖](projects/05-rgb-mood-lamp/) |
 
 ---
 
@@ -53,8 +60,9 @@ iot-project-kit/
 
 - **Microcontroller**: Arduino Uno R3 / Nano / ESP32
 - **Displays**: 0.96" I2C OLED (SSD1306), 7-Segment LED Display (Common Anode)
+- **Actuators & Lighting**: 4-Pin RGB LED (Common Cathode), LEDs (Red, Yellow, Green)
 - **Sensors**: TTP223 Capacitive Touch Sensor
-- **Basic Components**: Breadboard, Push Buttons, LEDs, Resistors (220Ω, 10kΩ), Jumper Wires
+- **Basic Components**: Breadboard, Push Buttons, Resistors (220Ω, 10kΩ), Jumper Wires
 - **Software**: Arduino IDE / PlatformIO / Web Editor
 
 ---
@@ -65,7 +73,7 @@ iot-project-kit/
    ```bash
    git clone https://github.com/Pavank5214/iot-project-kit.git
    ```
-2. Navigate to any project folder under `projects/` (e.g., `projects/04-electronic-dice/`).
+2. Navigate to any project folder under `projects/` (e.g., `projects/05-rgb-mood-lamp/`).
 3. Open the `.ino` file in **Arduino IDE**.
 4. Wire your circuit according to the provided `README.md` diagram.
 5. Select your board (`Tools -> Board -> Arduino Uno`) and COM port, then click **Upload**.
