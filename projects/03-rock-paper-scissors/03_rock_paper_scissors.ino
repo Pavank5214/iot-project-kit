@@ -1,164 +1,218 @@
 /*
-  Project 03: Rock Paper Scissors OLED Game
+  Project 03: Rock Paper Scissors OLED Game (Internal Pull-up Version)
   IoT Project Kit - Arduino Uno
 
   Description:
   An interactive Rock-Paper-Scissors game using an I2C SSD1306 128x64 OLED Display
-  and 3 push buttons. The user picks Rock, Paper, or Scissors, and the Arduino randomly
-  selects a computer choice and determines the winner!
+  and 3 push buttons using Arduino's internal INPUT_PULLUP resistors.
+  NO external pull-down/pull-up resistors required!
 
-  Hardware Connections:
-  - Left Button (Rock)    -> Digital Pin 2
-  - Middle Button (Paper) -> Digital Pin 3
-  - Right Button (Scissor)-> Digital Pin 4
-  - OLED VDD              -> 5V
-  - OLED GND              -> GND
-  - OLED SCK / SCL        -> Analog Pin A5
-  - OLED SDA              -> Analog Pin A4
+  Button Connections:
+  - Rock Button    -> Digital Pin 2 -> Button -> GND
+  - Paper Button   -> Digital Pin 3 -> Button -> GND
+  - Scissor Button -> Digital Pin 4 -> Button -> GND
+
+  OLED SSD1306 I2C:
+  - VCC -> 5V
+  - GND -> GND
+  - SCL -> Analog Pin A5
+  - SDA -> Analog Pin A4
 
   Required Libraries:
   - Adafruit_GFX
   - Adafruit_SSD1306
 */
 
-#include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
 
-// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+// OLED display instance
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// Pin Definitions
-const int LeftButtonPin = 2;   // Rock
-const int MiddleButtonPin = 3; // Paper
-const int RightButtonPin = 4;  // Scissor
+// Button pins
+const int RockButton = 2;
+const int PaperButton = 3;
+const int ScissorButton = 4;
 
-int playerchoice, compchoice;
+// Game choices
+int playerChoice;
+int computerChoice;
 
 void setup() {
-  pinMode(LeftButtonPin, INPUT);
-  pinMode(MiddleButtonPin, INPUT);
-  pinMode(RightButtonPin, INPUT);
+  // Enable Arduino's internal pull-up resistors (NO external resistors needed)
+  pinMode(RockButton, INPUT_PULLUP);
+  pinMode(PaperButton, INPUT_PULLUP);
+  pinMode(ScissorButton, INPUT_PULLUP);
 
   Serial.begin(115200);
 
-  // Seed pseudo-random number generator using floating analog pin A0
-  randomSeed(analogRead(0));
+  // Seed random number generator with floating analog pin A0
+  randomSeed(analogRead(A0));
 
-  // Initialize SSD1306 OLED display (I2C address 0x3C)
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+  // Initialize OLED (I2C address 0x3C)
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop forever
+    while (true) {
+      // Stop if OLED initialization fails
+    }
   }
 
-  delay(2000);
   display.clearDisplay();
+  display.setTextColor(WHITE);
+
+  display.setTextSize(1);
+  display.setCursor(20, 25);
+  display.println("Rock Paper");
+  display.setCursor(35, 40);
+  display.println("Scissors!");
+  display.display();
+
+  delay(2000);
 }
 
 void loop() {
-  playerchoice = 0;
-  compchoice = 0;
+  playerChoice = 0;
+  computerChoice = 0;
 
+  // -----------------------------
+  // MAIN MENU
+  // -----------------------------
+  display.clearDisplay();
   display.setTextSize(1);
-  display.setTextColor(WHITE);
-  
-  // Prompt user screen
+
   display.setCursor(10, 0);
-  display.println("Lets Play a Game!");
-  display.setCursor(23, 15);
-  display.println("(choose one)");
-  display.setCursor(0, 30);
-  display.println("ROCK PAPER or SCISSOR");
-  display.setCursor(0, 45);
-  display.println("LEFT MIDDLE or RIGHT");
+  display.println("Lets Play!");
+
+  display.setCursor(25, 12);
+  display.println("Choose One");
+
+  display.setCursor(5, 28);
+  display.println("ROCK   PAPER   SCISSOR");
+
+  display.setCursor(5, 45);
+  display.println(" D2      D3       D4");
+
   display.display();
 
-  // Wait until player presses a button
-  while (playerchoice == 0) { 
-    if (digitalRead(LeftButtonPin) == HIGH) {
-      playerchoice = 1; // Rock
-      display.clearDisplay();
-      display.setCursor(0, 0);
-      display.println("You Chose");
-      display.setCursor(5, 15);
-      display.println("Rock");
-      display.display();
-    }
-  
-    if (digitalRead(MiddleButtonPin) == HIGH) {
-      playerchoice = 2; // Paper
-      display.clearDisplay();
-      display.setCursor(0, 0);
-      display.println("You Chose");
-      display.setCursor(5, 15);
-      display.println("Paper");
-      display.display();
-    }
+  // -----------------------------
+  // WAIT FOR PLAYER INPUT
+  // -----------------------------
+  while (playerChoice == 0) {
+    // INPUT_PULLUP logic:
+    // Button NOT pressed = HIGH
+    // Button pressed     = LOW
 
-    if (digitalRead(RightButtonPin) == HIGH) {
-      playerchoice = 3; // Scissor
+    if (digitalRead(RockButton) == LOW) {
+      playerChoice = 1;
+
       display.clearDisplay();
-      display.setCursor(0, 0);
-      display.println("You Chose");
-      display.setCursor(5, 15);
-      display.println("Scissor");
+      display.setTextSize(2);
+      display.setCursor(25, 10);
+      display.println("YOU");
+      display.setCursor(20, 35);
+      display.println("ROCK");
       display.display();
-    } 
+
+      delay(500);
+    }
+    else if (digitalRead(PaperButton) == LOW) {
+      playerChoice = 2;
+
+      display.clearDisplay();
+      display.setTextSize(2);
+      display.setCursor(25, 10);
+      display.println("YOU");
+      display.setCursor(15, 35);
+      display.println("PAPER");
+      display.display();
+
+      delay(500);
+    }
+    else if (digitalRead(ScissorButton) == LOW) {
+      playerChoice = 3;
+
+      display.clearDisplay();
+      display.setTextSize(2);
+      display.setCursor(15, 10);
+      display.println("YOU");
+      display.setCursor(5, 35);
+      display.println("SCISSOR");
+      display.display();
+
+      delay(500);
+    }
   }
 
-  // Draw UI split lines
-  display.drawLine(60, 0, 60, 29, WHITE);
-  display.drawLine(0, 29, 128, 29, WHITE);
-  display.display();  
+  // -----------------------------
+  // COMPUTER CHOICE & DISPLAY
+  // -----------------------------
+  computerChoice = random(1, 4);
 
-  delay(500);
-
-  // Generate computer choice (1 = Rock, 2 = Paper, 3 = Scissor)
-  compchoice = random(1, 4);
-
-  if (compchoice == 1) {
-    display.setCursor(68, 0);
-    display.println("Comp Chose");
-    display.setCursor(73, 15);
-    display.println("Rock");
-    display.display();
-  } else if (compchoice == 2) {
-    display.setCursor(68, 0);
-    display.println("Comp Chose");
-    display.setCursor(73, 15);
-    display.println("Paper");
-    display.display();
-  } else if (compchoice == 3) {
-    display.setCursor(68, 0);
-    display.println("Comp Chose");
-    display.setCursor(73, 15);
-    display.println("Scissor");
-    display.display();
-  } 
-
-  delay(1000);
-
-  // Determine game outcome
-  if (playerchoice == compchoice) {
-    display.setCursor(32, 40);
-    display.println("Its a Tie!");
-    display.display(); 
-  } else if ((playerchoice == 1 && compchoice == 3) ||
-             (playerchoice == 2 && compchoice == 1) ||
-             (playerchoice == 3 && compchoice == 2)) {
-    display.setCursor(32, 40);
-    display.println("You Won!");
-    display.display(); 
-  } else {
-    display.setCursor(32, 40);
-    display.println("Comp Won!");
-    display.display(); 
-  }
-
-  delay(2000);  
   display.clearDisplay();
+  display.setTextSize(1);
+
+  display.setCursor(0, 0);
+  display.println("YOU");
+
+  display.setCursor(70, 0);
+  display.println("COMPUTER");
+
+  display.drawLine(64, 0, 64, 30, WHITE);
+  display.drawLine(0, 30, 128, 30, WHITE);
+
+  // Display player's choice
+  display.setCursor(5, 15);
+  if (playerChoice == 1) {
+    display.println("ROCK");
+  } else if (playerChoice == 2) {
+    display.println("PAPER");
+  } else {
+    display.println("SCISSOR");
+  }
+
+  // Display computer's choice
+  display.setCursor(70, 15);
+  if (computerChoice == 1) {
+    display.println("ROCK");
+  } else if (computerChoice == 2) {
+    display.println("PAPER");
+  } else {
+    display.println("SCISSOR");
+  }
+
+  display.display();
+  delay(1500);
+
+  // -----------------------------
+  // DETERMINE WINNER
+  // -----------------------------
+  display.clearDisplay();
+  display.setTextSize(2);
+
+  if (playerChoice == computerChoice) {
+    display.setCursor(25, 25);
+    display.println("TIE!");
+  } else if (
+    (playerChoice == 1 && computerChoice == 3) ||
+    (playerChoice == 2 && computerChoice == 1) ||
+    (playerChoice == 3 && computerChoice == 2)
+  ) {
+    display.setCursor(15, 25);
+    display.println("YOU WIN!");
+  } else {
+    display.setCursor(5, 25);
+    display.println("COMP WINS!");
+  }
+
+  display.display();
+  delay(2000);
+
+  // Return to main menu
+  display.clearDisplay();
+  display.display();
+  delay(300);
 }

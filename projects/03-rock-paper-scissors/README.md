@@ -3,14 +3,17 @@
 [![Difficulty: Medium](https://img.shields.io/badge/Difficulty-Medium-yellow.svg)](#difficulty)
 [![Board: Arduino Uno](https://img.shields.io/badge/Board-Arduino%20Uno-blue.svg)](#hardware-used)
 [![Display: SSD1306 OLED](https://img.shields.io/badge/Display-0.96%22%20SSD1306%20OLED-orange.svg)](#hardware-used)
+[![Wiring: Internal Pull-Up](https://img.shields.io/badge/Wiring-INPUT__PULLUP-brightgreen.svg)](#circuit-connections)
 
 ## Overview
 
-The **Rock Paper Scissors OLED Game** is an interactive handheld game built with an Arduino Uno, a 0.96" I2C SSD1306 OLED display, and 3 tactile push buttons. Players choose their move (Rock, Paper, or Scissors) by pressing a button. The Arduino generates a random computer move, renders the graphics on the screen, and calculates the game result in real time.
+The **Rock Paper Scissors OLED Game** is an interactive handheld game built with an Arduino Uno, a 0.96" I2C SSD1306 OLED display, and 3 tactile push buttons. Players select their move (Rock, Paper, or Scissors) by pressing a button. The Arduino generates a random computer move, renders the graphics on the display, and determines the winner in real time.
+
+This updated version utilizes **Arduino's internal pull-up resistors (`INPUT_PULLUP`)**, eliminating the need for external pull-down/pull-up resistors!
 
 This project introduces key embedded systems concepts:
-* **I2C Protocol & Graphics Rendering** using the `Adafruit_SSD1306` library
-* **Digital Inputs & Pulldown Resistors**
+* **I2C Protocol & Graphics Rendering** using `Adafruit_SSD1306`
+* **Internal Pull-Up Resistors (`INPUT_PULLUP`)** and active-LOW button logic
 * **Pseudo-Random Number Generation** (`randomSeed()`)
 * **Conditional Game Logic & UI State Management**
 
@@ -18,7 +21,7 @@ This project introduces key embedded systems concepts:
 
 ## Difficulty
 
-**Medium** — Requires installing external Arduino libraries and wiring an I2C display alongside multiple digital inputs.
+**Medium** — Requires installing external Arduino libraries and wiring an I2C display alongside digital inputs using internal pull-up logic.
 
 ---
 
@@ -28,10 +31,12 @@ This project introduces key embedded systems concepts:
 | :--- | :---: | :--- |
 | **Arduino Uno** | 1 | Microcontroller board |
 | **0.96" I2C OLED Display** | 1 | 128x64 pixels (SSD1306 controller, address `0x3C`) |
-| **Push Buttons** | 3 | Tactile switches (Left = Rock, Middle = Paper, Right = Scissors) |
-| **10kΩ Resistors** | 3 | Pull-down resistors for buttons |
+| **Push Buttons** | 3 | Tactile switches (Rock, Paper, Scissors) |
 | **Breadboard** | 1 | Solderless prototyping board |
-| **Jumper Wires** | 10–12 | Male-to-Male wires |
+| **Jumper Wires** | 8–10 | Male-to-Male wires |
+
+> [!TIP]
+> **No External Resistors Needed!** Thanks to `pinMode(pin, INPUT_PULLUP)`, each button is connected directly between its designated digital pin and Ground (`GND`).
 
 ---
 
@@ -46,13 +51,13 @@ This project introduces key embedded systems concepts:
 | **SCK / SCL** | **Analog Pin A5** | I2C Clock Line |
 | **SDA** | **Analog Pin A4** | I2C Data Line |
 
-### Push Buttons (Digital Inputs)
+### Push Buttons (Internal Pull-Up Active-LOW Logic)
 
-| Component | Arduino Pin | Resistor Connection | Function |
-| :--- | :--- | :--- | :--- |
-| **Left Button** | **Digital Pin 2** | 10kΩ to GND | Choose **Rock** |
-| **Middle Button** | **Digital Pin 3** | 10kΩ to GND | Choose **Paper** |
-| **Right Button** | **Digital Pin 4** | 10kΩ to GND | Choose **Scissors** |
+| Button Function | Arduino Pin | Ground Connection | Logic State when Pressed |
+| :--- | :--- | :--- | :---: |
+| **Rock Button** | **Digital Pin 2** | Connected to **GND** | `LOW` |
+| **Paper Button** | **Digital Pin 3** | Connected to **GND** | `LOW` |
+| **Scissor Button** | **Digital Pin 4** | Connected to **GND** | `LOW` |
 
 ---
 
@@ -73,9 +78,9 @@ Arduino UNO
      GND ────┤ GND                   │
              └───────────────────────┘
 
-      D2 ────[ Button 1 (Rock)     ]───> 10kΩ ──> GND
-      D3 ────[ Button 2 (Paper)    ]───> 10kΩ ──> GND
-      D4 ────[ Button 3 (Scissors) ]───> 10kΩ ──> GND
+      D2 ───────[ Button 1: Rock     ]───────┐
+      D3 ───────[ Button 2: Paper    ]───────┼───> GND
+      D4 ───────[ Button 3: Scissors ]───────┘
 ```
 
 ---
@@ -103,138 +108,145 @@ To compile and run this sketch, install the following libraries via the **Arduin
 
 ## Arduino Code
 
-The complete source code is available in [`03_rock_paper_scissors.ino`](03_rock_paper_scissors.ino).
+The source code for this project is available in [`03_rock_paper_scissors.ino`](03_rock_paper_scissors.ino).
 
 ```cpp
-#include <SPI.h>
+/*
+  Project 03: Rock Paper Scissors OLED Game
+  Board: Arduino Uno
+  
+  Buttons use Arduino's internal INPUT_PULLUP.
+  NO external resistors required.
+*/
+
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define SCREEN_WIDTH 128 
-#define SCREEN_HEIGHT 64 
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-const int LeftButtonPin = 2;   // Rock
-const int MiddleButtonPin = 3; // Paper
-const int RightButtonPin = 4;  // Scissor
+const int RockButton = 2;
+const int PaperButton = 3;
+const int ScissorButton = 4;
 
-int playerchoice, compchoice;
+int playerChoice;
+int computerChoice;
 
 void setup() {
-  pinMode(LeftButtonPin, INPUT);
-  pinMode(MiddleButtonPin, INPUT);
-  pinMode(RightButtonPin, INPUT);
+  pinMode(RockButton, INPUT_PULLUP);
+  pinMode(PaperButton, INPUT_PULLUP);
+  pinMode(ScissorButton, INPUT_PULLUP);
 
   Serial.begin(115200);
-  randomSeed(analogRead(0));
+  randomSeed(analogRead(A0));
 
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println(F("SSD1306 allocation failed"));
-    for(;;);
+    while (true) {}
   }
-  delay(2000);
+
   display.clearDisplay();
+  display.setTextColor(WHITE);
+  display.setTextSize(1);
+  display.setCursor(20, 25);
+  display.println("Rock Paper");
+  display.setCursor(35, 40);
+  display.println("Scissors!");
+  display.display();
+  delay(2000);
 }
 
 void loop() {
-  playerchoice = 0;
-  compchoice = 0;
+  playerChoice = 0;
+  computerChoice = 0;
 
+  display.clearDisplay();
   display.setTextSize(1);
-  display.setTextColor(WHITE);
-  
-  display.setCursor(10, 0);
-  display.println("Lets Play a Game!");
-  display.setCursor(23, 15);
-  display.println("(choose one)");
-  display.setCursor(0, 30);
-  display.println("ROCK PAPER or SCISSOR");
-  display.setCursor(0, 45);
-  display.println("LEFT MIDDLE or RIGHT");
+  display.setCursor(10, 0);  display.println("Lets Play!");
+  display.setCursor(25, 12); display.println("Choose One");
+  display.setCursor(5, 28);  display.println("ROCK   PAPER   SCISSOR");
+  display.setCursor(5, 45);  display.println(" D2      D3       D4");
   display.display();
 
-  while (playerchoice == 0) { 
-    if (digitalRead(LeftButtonPin) == HIGH) {
-      playerchoice = 1;
+  while (playerChoice == 0) {
+    if (digitalRead(RockButton) == LOW) {
+      playerChoice = 1;
       display.clearDisplay();
-      display.setCursor(0, 0);
-      display.println("You Chose");
-      display.setCursor(5, 15);
-      display.println("Rock");
+      display.setTextSize(2);
+      display.setCursor(25, 10); display.println("YOU");
+      display.setCursor(20, 35); display.println("ROCK");
       display.display();
+      delay(500);
     }
-  
-    if (digitalRead(MiddleButtonPin) == HIGH) {
-      playerchoice = 2;
+    else if (digitalRead(PaperButton) == LOW) {
+      playerChoice = 2;
       display.clearDisplay();
-      display.setCursor(0, 0);
-      display.println("You Chose");
-      display.setCursor(5, 15);
-      display.println("Paper");
+      display.setTextSize(2);
+      display.setCursor(25, 10); display.println("YOU");
+      display.setCursor(15, 35); display.println("PAPER");
       display.display();
+      delay(500);
     }
-
-    if (digitalRead(RightButtonPin) == HIGH) {
-      playerchoice = 3;
+    else if (digitalRead(ScissorButton) == LOW) {
+      playerChoice = 3;
       display.clearDisplay();
-      display.setCursor(0, 0);
-      display.println("You Chose");
-      display.setCursor(5, 15);
-      display.println("Scissor");
+      display.setTextSize(2);
+      display.setCursor(15, 10); display.println("YOU");
+      display.setCursor(5, 35);  display.println("SCISSOR");
       display.display();
-    } 
+      delay(500);
+    }
   }
 
-  display.drawLine(60, 0, 60, 29, WHITE);
-  display.drawLine(0, 29, 128, 29, WHITE);
-  display.display();  
+  computerChoice = random(1, 4);
 
-  delay(500);
-
-  compchoice = random(1, 4);
-
-  if (compchoice == 1) {
-    display.setCursor(68, 0);
-    display.println("Comp Chose");
-    display.setCursor(73, 15);
-    display.println("Rock");
-    display.display();
-  } else if (compchoice == 2) {
-    display.setCursor(68, 0);
-    display.println("Comp Chose");
-    display.setCursor(73, 15);
-    display.println("Paper");
-    display.display();
-  } else if (compchoice == 3) {
-    display.setCursor(68, 0);
-    display.println("Comp Chose");
-    display.setCursor(73, 15);
-    display.println("Scissor");
-    display.display();
-  } 
-
-  delay(1000);
-
-  if (playerchoice == compchoice) {
-    display.setCursor(32, 40);
-    display.println("Its a Tie!");
-    display.display(); 
-  } else if ((playerchoice == 1 && compchoice == 3) ||
-             (playerchoice == 2 && compchoice == 1) ||
-             (playerchoice == 3 && compchoice == 2)) {
-    display.setCursor(32, 40);
-    display.println("You Won!");
-    display.display(); 
-  } else {
-    display.setCursor(32, 40);
-    display.println("Comp Won!");
-    display.display(); 
-  }
-
-  delay(2000);  
   display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, 0);   display.println("YOU");
+  display.setCursor(70, 0);  display.println("COMPUTER");
+  display.drawLine(64, 0, 64, 30, WHITE);
+  display.drawLine(0, 30, 128, 30, WHITE);
+
+  display.setCursor(5, 15);
+  if (playerChoice == 1) display.println("ROCK");
+  else if (playerChoice == 2) display.println("PAPER");
+  else display.println("SCISSOR");
+
+  display.setCursor(70, 15);
+  if (computerChoice == 1) display.println("ROCK");
+  else if (computerChoice == 2) display.println("PAPER");
+  else display.println("SCISSOR");
+
+  display.display();
+  delay(1500);
+
+  display.clearDisplay();
+  display.setTextSize(2);
+
+  if (playerChoice == computerChoice) {
+    display.setCursor(25, 25);
+    display.println("TIE!");
+  } else if (
+    (playerChoice == 1 && computerChoice == 3) ||
+    (playerChoice == 2 && computerChoice == 1) ||
+    (playerChoice == 3 && computerChoice == 2)
+  ) {
+    display.setCursor(15, 25);
+    display.println("YOU WIN!");
+  } else {
+    display.setCursor(5, 25);
+    display.println("COMP WINS!");
+  }
+
+  display.display();
+  delay(2000);
+
+  display.clearDisplay();
+  display.display();
+  delay(300);
 }
 ```
 
@@ -242,16 +254,15 @@ void loop() {
 
 ## How It Works
 
-1. **Display Initialization**: The OLED is configured using I2C address `0x3C`. If communication fails, the code halts execution.
-2. **Random Seed Generation**: `randomSeed(analogRead(0))` reads static electrical noise from floating pin A0 to ensure unpredictable computer moves every match.
-3. **Player Input Loop**: The `while (playerchoice == 0)` loop waits until one of the 3 push buttons sends a `HIGH` signal.
-4. **Opponent AI Logic**: `random(1, 4)` picks a value between 1 and 3 representing the computer's choice.
-5. **Score Evaluation & Screen Update**: The OLED displays the player's choice on the left, the computer's choice on the right, and the winner prompt across the bottom panel.
+1. **Internal Pull-Up Activation**: `pinMode(pin, INPUT_PULLUP)` enables an internal ~20kΩ pull-up resistor inside the ATmega328P microcontroller. When a button is not pressed, the input pin reads `HIGH`. When pressed, it connects directly to GND and reads `LOW`.
+2. **Random Seed Generation**: `randomSeed(analogRead(A0))` reads floating electrical noise from pin A0 to ensure true random computer choices.
+3. **Selection Loop**: The program waits until `digitalRead(buttonPin) == LOW`, identifying which choice was pressed.
+4. **Result Screen**: Splits the display into two columns (Player vs Computer) and shows the match outcome.
 
 ---
 
 ## Future Enhancements & Experiments
 
-* **Bitmap Icons**: Replace text with custom 16x16 bitmap icons for Rock 🪨, Paper 📄, and Scissors ✂️ using `display.drawBitmap()`.
-* **Score Tracker**: Keep track of Wins, Losses, and Ties across multiple rounds.
-* **Piezo Buzzer**: Add sound effects for button clicks, victory tunes, and defeat tones.
+* **Bitmap Graphics**: Render custom 16x16 pixel icons for Rock 🪨, Paper 📄, and Scissors ✂️ using `display.drawBitmap()`.
+* **Score Tracker**: Store and render overall Wins, Losses, and Ties across rounds.
+* **Buzzer Audio**: Add a piezo buzzer to play tone effects for button presses and victory melodies!
