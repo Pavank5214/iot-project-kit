@@ -1,24 +1,24 @@
-# Project 04 — Electronic Die with 7-Segment Display & Touch Sensor 🎲
+# Project 04 — Electronic Die with 7-Segment Display & Push Button 🎲
 
 [![Difficulty: Easy](https://img.shields.io/badge/Difficulty-Easy-brightgreen.svg)](#difficulty)
 [![Board: Arduino Uno](https://img.shields.io/badge/Board-Arduino%20Uno-blue.svg)](#hardware-used)
-[![Sensor: TTP223 Touch](https://img.shields.io/badge/Sensor-TTP223%20Touch-purple.svg)](#hardware-used)
+[![Wiring: Internal Pull-Up](https://img.shields.io/badge/Wiring-INPUT__PULLUP-brightgreen.svg)](#circuit-connections)
 
 ## Overview
 
-The **Electronic Die** simulates a 6-sided rolling die for tabletop games. Interfaced with a **TTP223 Capacitive Touch Sensor** and a **1-Digit 7-Segment LED Display**, touching the sensor triggers a fast "rolling" perimeter animation on the LED display, followed by displaying a random number between **1** and **6**.
+The **Electronic Die** simulates a 6-sided rolling die for tabletop board games. Interfaced with a **Push Button** and a **1-Digit 7-Segment LED Display**, holding down the button triggers a fast "rolling" animation on the display by cycling numbers 1 through 6. When the button is released, a random number between **1** and **6** is generated and held on the display.
 
 This project introduces key embedded systems concepts:
-* Controlling a 7-Segment LED Display (Common Anode logic)
-* Interfacing digital touch sensors (TTP223)
-* Creating custom display animations
-* Generating pseudo-random numbers with `randomSeed(analogRead(A0))`
+* Controlling a 7-Segment LED Display (Common Cathode logic)
+* Using **Arduino's internal pull-up resistors (`INPUT_PULLUP`)** for clean button wiring without external resistors
+* Simulating a rolling animation with `delay()` timing loops
+* Generating random numbers with `random(1, 7)` and `randomSeed()`
 
 ---
 
 ## Difficulty
 
-**Easy** — Great beginner-to-intermediate project for understanding multiplexed segment mapping and sensor input.
+**Easy** — Perfect beginner project for learning segment mapping, switch-case state selection, and active-LOW button logic.
 
 ---
 
@@ -27,48 +27,47 @@ This project introduces key embedded systems concepts:
 | Component | Quantity | Notes |
 | :--- | :---: | :--- |
 | **Arduino Uno** | 1 | Microcontroller board |
-| **1-Digit 7-Segment Display** | 1 | **Common Anode** type |
-| **TTP223 Capacitive Touch Sensor** | 1 | Digital touch sensor module |
-| **220Ω Resistor** | 1 | Current limiting resistor for Common Anode pin |
-| **Breadboard** | 1 | Solderless breadboard |
-| **Jumper Wires** | 10–12 | Male-to-Male wires |
+| **1-Digit 7-Segment Display** | 1 | **Common Cathode** type |
+| **Push Button** | 1 | Tactile switch |
+| **220Ω Resistor** | 1 | Current-limiting resistor for Common Cathode GND pin |
+| **Breadboard** | 1 | Solderless prototyping board |
+| **Jumper Wires** | 9–10 | Male-to-Male wires |
 
 ---
 
 ## Circuit Connections
 
-### 7-Segment Display (Common Anode)
+### 7-Segment Display (Common Cathode)
 
 ```text
-       ── a ──
+       ── A ──
       │       │
-      f       b
+      F       B
       │       │
-       ── g ──
+       ── G ──
       │       │
-      e       c
+      E       C
       │       │
-       ── d ──
+       ── D ──
 ```
 
-| 7-Segment Display Pin | Arduino Uno Pin | Resistor Connection |
+| 7-Segment Display Pin | Arduino Uno Pin | Description |
 | :--- | :--- | :--- |
-| **Segment a** | **Digital Pin 11** | Direct |
-| **Segment b** | **Digital Pin 10** | Direct |
-| **Segment c** | **Digital Pin 9** | Direct |
-| **Segment d** | **Digital Pin 8** | Direct |
-| **Segment e** | **Digital Pin 7** | Direct |
-| **Segment f** | **Digital Pin 6** | Direct |
-| **Segment g** | **Digital Pin 5** | Direct |
-| **Common Anode (+)** | **5V** | via 220Ω Resistor |
+| **Segment A** | **Digital Pin 7** | Top segment |
+| **Segment B** | **Digital Pin 6** | Upper-right segment |
+| **Segment C** | **Digital Pin 4** | Lower-right segment |
+| **Segment D** | **Digital Pin 3** | Bottom segment |
+| **Segment E** | **Digital Pin 2** | Lower-left segment |
+| **Segment F** | **Digital Pin 8** | Upper-left segment |
+| **Segment G** | **Digital Pin 9** | Middle segment |
+| **Common Cathode (-)** | **GND** | Connected via 220Ω Resistor |
 
-### TTP223 Touch Sensor Module
+### Push Button Wiring
 
-| Touch Sensor Pin | Arduino Uno Pin | Description |
-| :--- | :--- | :--- |
-| **VCC** | **5V** | Power supply (+5V) |
-| **GND** | **GND** | Ground |
-| **OUT (SIG)** | **Digital Pin 3** | Touch signal input (`HIGH` when touched) |
+| Component Terminal | Connection | Logic State |
+| :--- | :--- | :---: |
+| **Button Terminal 1** | **Digital Pin 12** (`INPUT_PULLUP`) | `HIGH` (Unpressed) / `LOW` (Pressed) |
+| **Button Terminal 2** | **GND** | Ground reference |
 
 ---
 
@@ -82,147 +81,178 @@ This project introduces key embedded systems concepts:
 ```text
 Arduino UNO
 
-     D11 ───────> Segment a
-     D10 ───────> Segment b
-      D9 ───────> Segment c           ┌─────────┐
-      D8 ───────> Segment d           │ 7-Seg   │
-      D7 ───────> Segment e           │ Display │
-      D6 ───────> Segment f           └────┬────┘
-      D5 ───────> Segment g                │
-      D3 <─────── Touch Sensor OUT         │ 220Ω
-      5V ───────> Touch VCC & Resistor ────┘
-     GND ───────> Touch GND
+      D7 ───────> Segment A
+      D6 ───────> Segment B
+      D4 ───────> Segment C           ┌─────────┐
+      D3 ───────> Segment D           │ 7-Seg   │
+      D2 ───────> Segment E           │ Display │
+      D8 ───────> Segment F           └────┬────┘
+      D9 ───────> Segment G                │
+                                           │ 220Ω
+     D12 ───────[ Push Button ]───────────┴─> GND
 ```
 
 ---
 
-## Common Anode 7-Segment Truth Table
+## Common Cathode 7-Segment Truth Table
 
 > [!NOTE]
-> In a **Common Anode** 7-segment display, the common pin is tied to **+5V**. Therefore:
-> * **`LOW`** turns an LED segment **ON** (current flows to pin).
-> * **`HIGH`** turns an LED segment **OFF** (no potential difference).
+> In a **Common Cathode** 7-segment display, the common pin is tied to **GND**. Therefore:
+> * **`HIGH`** turns an LED segment **ON** (+5V output from pin).
+> * **`LOW`** turns an LED segment **OFF** (0V output from pin).
 
-| Digit | a | b | c | d | e | f | g |
+| Digit | A | B | C | D | E | F | G |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **1** | HIGH | **LOW** | **LOW** | HIGH | HIGH | HIGH | HIGH |
-| **2** | **LOW** | **LOW** | HIGH | **LOW** | **LOW** | HIGH | **LOW** |
-| **3** | **LOW** | **LOW** | **LOW** | **LOW** | HIGH | HIGH | **LOW** |
-| **4** | HIGH | **LOW** | **LOW** | HIGH | HIGH | **LOW** | **LOW** |
-| **5** | **LOW** | HIGH | **LOW** | **LOW** | HIGH | **LOW** | **LOW** |
-| **6** | **LOW** | HIGH | **LOW** | **LOW** | **LOW** | **LOW** | **LOW** |
+| **1** | LOW | **HIGH** | **HIGH** | LOW | LOW | LOW | LOW |
+| **2** | **HIGH** | **HIGH** | LOW | **HIGH** | **HIGH** | LOW | **HIGH** |
+| **3** | **HIGH** | **HIGH** | **HIGH** | **HIGH** | LOW | LOW | **HIGH** |
+| **4** | LOW | **HIGH** | **HIGH** | LOW | LOW | **HIGH** | **HIGH** |
+| **5** | **HIGH** | LOW | **HIGH** | **HIGH** | LOW | **HIGH** | **HIGH** |
+| **6** | **HIGH** | LOW | **HIGH** | **HIGH** | **HIGH** | **HIGH** | **HIGH** |
 
 ---
 
-## Arduino Code
+## Arduino Code & Detailed Explanation
 
-The source code for this project is available in [`04_electronic_dice.ino`](04_electronic_dice.ino).
+The complete source code is available in [`04_electronic_dice.ino`](04_electronic_dice.ino).
 
 ```cpp
 /*
- * Project 04: Electronic Die with 7-Segment Display & Touch Sensor
+ * Project 04: Electronic Die with 7-Segment Display & Push Button
  * Board: Arduino Uno
  */
 
-const int seg_a = 11;
-const int seg_b = 10;
-const int seg_c = 9;
-const int seg_d = 8;
-const int seg_e = 7;
-const int seg_f = 6;
-const int seg_g = 5;
-const int sensor = 3;
+const int A = 7;
+const int B = 6;
+const int C = 4;
+const int D = 3;
+const int E = 2;
+const int F = 8;
+const int G = 9;
+const int buttonPin = 12;
 
-int i = 0;
+int random_int = 0;
 
 void setup() {
-  pinMode(seg_a, OUTPUT); 
-  pinMode(seg_b, OUTPUT);
-  pinMode(seg_c, OUTPUT);
-  pinMode(seg_d, OUTPUT);
-  pinMode(seg_e, OUTPUT);
-  pinMode(seg_f, OUTPUT);
-  pinMode(seg_g, OUTPUT);
-  pinMode(sensor, INPUT);
+  pinMode(A, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT);
+  pinMode(E, OUTPUT);
+  pinMode(F, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
 
-  while(digitalRead(sensor) == LOW){
-    pattern(); // Display spinning pattern while waiting
-  }
-  
   randomSeed(analogRead(A0));
 }
 
 void loop() {
-  if(digitalRead(sensor) == HIGH){
-    i = random(1, 7); // Pick random number 1..6
-    for(int pat = 0; pat <= 2; pat++){
-      pattern(); // Play roll animation 3x
+  int pusshed = digitalRead(buttonPin);
+
+  if (pusshed == LOW) {
+    random_int = random(1, 7);
+
+    // Rapidly cycle digits to simulate a rolling dice effect
+    one();   delay(20);
+    two();   delay(20);
+    three(); delay(20);
+    four();  delay(20);
+    five();  delay(20);
+    six();   delay(20);
+  }
+  else {
+    switch (random_int) {
+      case 1: one();   break;
+      case 2: two();   break;
+      case 3: three(); break;
+      case 4: four();  break;
+      case 5: five();  break;
+      case 6: six();   break;
     }
-    sevenSeg(); // Display final dice number
+    delay(200);
   }
 }
 
-void sevenSeg() {
-  if (i == 1) {
-    digitalWrite(seg_a, HIGH); digitalWrite(seg_b, LOW);  digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, HIGH); digitalWrite(seg_e, HIGH); digitalWrite(seg_f, HIGH); digitalWrite(seg_g, HIGH);
-  } else if (i == 2) {
-    digitalWrite(seg_a, LOW);  digitalWrite(seg_b, LOW);  digitalWrite(seg_c, HIGH);
-    digitalWrite(seg_d, LOW);  digitalWrite(seg_e, LOW);  digitalWrite(seg_f, HIGH); digitalWrite(seg_g, LOW);
-  } else if (i == 3) {
-    digitalWrite(seg_a, LOW);  digitalWrite(seg_b, LOW);  digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, LOW);  digitalWrite(seg_e, HIGH); digitalWrite(seg_f, HIGH); digitalWrite(seg_g, LOW);
-  } else if (i == 4) {
-    digitalWrite(seg_a, HIGH); digitalWrite(seg_b, LOW);  digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, HIGH); digitalWrite(seg_e, HIGH); digitalWrite(seg_f, LOW);  digitalWrite(seg_g, LOW);
-  } else if (i == 5) {
-    digitalWrite(seg_a, LOW);  digitalWrite(seg_b, HIGH); digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, LOW);  digitalWrite(seg_e, HIGH); digitalWrite(seg_f, LOW);  digitalWrite(seg_g, LOW);
-  } else if (i == 6) {
-    digitalWrite(seg_a, LOW);  digitalWrite(seg_b, HIGH); digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, LOW);  digitalWrite(seg_e, LOW);  digitalWrite(seg_f, LOW);  digitalWrite(seg_g, LOW);
-  }
+void one() {
+  digitalWrite(A, LOW);  digitalWrite(B, HIGH); digitalWrite(C, HIGH);
+  digitalWrite(D, LOW);  digitalWrite(E, LOW);  digitalWrite(F, LOW);  digitalWrite(G, LOW);
 }
 
-void pattern() { // Outer segment chase animation (a -> b -> c -> d -> e -> f)
-  digitalWrite(seg_a, LOW);  digitalWrite(seg_b, HIGH); digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH); digitalWrite(seg_e, HIGH); digitalWrite(seg_f, HIGH); digitalWrite(seg_g, HIGH);
-  delay(100);
-  
-  digitalWrite(seg_a, HIGH); digitalWrite(seg_b, LOW);  digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH); digitalWrite(seg_e, HIGH); digitalWrite(seg_f, HIGH); digitalWrite(seg_g, HIGH);
-  delay(100);
+void two() {
+  digitalWrite(A, HIGH); digitalWrite(B, HIGH); digitalWrite(C, LOW);
+  digitalWrite(D, HIGH); digitalWrite(E, HIGH); digitalWrite(F, LOW);  digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH); digitalWrite(seg_b, HIGH); digitalWrite(seg_c, LOW);
-  digitalWrite(seg_d, HIGH); digitalWrite(seg_e, HIGH); digitalWrite(seg_f, HIGH); digitalWrite(seg_g, HIGH);
-  delay(100);
+void three() {
+  digitalWrite(A, HIGH); digitalWrite(B, HIGH); digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH); digitalWrite(E, LOW);  digitalWrite(F, LOW);  digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH); digitalWrite(seg_b, HIGH); digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, LOW);  digitalWrite(seg_e, HIGH); digitalWrite(seg_f, HIGH); digitalWrite(seg_g, HIGH);
-  delay(100);
+void four() {
+  digitalWrite(A, LOW);  digitalWrite(B, HIGH); digitalWrite(C, HIGH);
+  digitalWrite(D, LOW);  digitalWrite(E, LOW);  digitalWrite(F, HIGH); digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH); digitalWrite(seg_b, HIGH); digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH); digitalWrite(seg_e, LOW);  digitalWrite(seg_f, HIGH); digitalWrite(seg_g, HIGH);
-  delay(100);
+void five() {
+  digitalWrite(A, HIGH); digitalWrite(B, LOW);  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH); digitalWrite(E, LOW);  digitalWrite(F, HIGH); digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH); digitalWrite(seg_b, HIGH); digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH); digitalWrite(seg_e, HIGH); digitalWrite(seg_f, LOW);  digitalWrite(seg_g, HIGH);
-  delay(100);
+void six() {
+  digitalWrite(A, HIGH); digitalWrite(B, LOW);  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH); digitalWrite(E, HIGH); digitalWrite(F, HIGH); digitalWrite(G, HIGH);
 }
 ```
 
 ---
 
-## How It Works
+## Step-by-Step Code Breakdown
 
-1. **Idle Mode**: In `setup()`, while no touch is detected, the `pattern()` function loops continuously, causing an LED segment to chase around the outer border ($a \to b \to c \to d \to e \to f$).
-2. **Touch Detection**: Touching the TTP223 module sets Pin 3 `HIGH`.
-3. **Rolling Simulation**: The loop calls `pattern()` 3 times to simulate rolling dice.
-4. **Random Result**: `random(1, 7)` picks a number from 1 to 6. `sevenSeg()` illuminates the corresponding segments.
+### 1. Pin Definitions & Variable Declarations
+```cpp
+const int A = 7;
+const int B = 6;
+const int C = 4; ...
+int random_int = 0;
+```
+Defines pin mappings for each segment of the 7-segment display and declares `random_int` to store the final rolled dice number.
+
+### 2. Pin Setup & Internal Pull-Up Configuration
+```cpp
+void setup() {
+  ...
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+```
+Configures segment pins as `OUTPUT`s and Digital Pin 12 as an `INPUT_PULLUP`. Using `INPUT_PULLUP` enables the microcontroller's internal pull-up resistor, keeping Pin 12 `HIGH` when the button is not pressed and pulling it `LOW` when pressed.
+
+### 3. Rolling Loop Logic
+```cpp
+int pusshed = digitalRead(buttonPin);
+if (pusshed == LOW) {
+  random_int = random(1, 7);
+  one();   delay(20);
+  two();   delay(20); ...
+```
+While the push button is held down (`pusshed == LOW`), the program continually picks a random number from 1 to 6 and rapidly cycles through digits `1` to `6` with 20ms delays, creating a visual "dice rolling" flicker effect.
+
+### 4. Holding the Result
+```cpp
+else {
+  switch(random_int) {
+    case 1: one(); break;
+    ...
+  }
+  delay(200);
+}
+```
+When the user releases the button (`pusshed == HIGH`), the `switch-case` statement reads `random_int` and lights up the corresponding segments to display the final result.
 
 ---
 
-## Experiments & Enhancements
+## What You Learned
 
-* **Buzzer Sound Effects**: Add a piezo buzzer on Pin 12 to play a click sound during the rolling animation and a beep tone when the final number appears.
-* **Double Die Mode**: Add a second 7-segment display or roll twice to generate numbers between 2 and 12.
+- Wiring a 7-segment LED display with Common Cathode logic
+- Using internal pull-up resistors (`INPUT_PULLUP`) to simplify circuit wiring
+- Creating animated visual feedback loops in microcontrollers
+- Using `switch-case` blocks for state-based segment display control

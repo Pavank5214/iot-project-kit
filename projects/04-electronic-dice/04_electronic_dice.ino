@@ -1,194 +1,156 @@
 /*
-  Project 04: Electronic Die with 7-Segment Display & Touch Sensor
+  Project 04: Electronic Die with 7-Segment Display & Push Button
   IoT Project Kit - Arduino Uno
 
   Description:
-  Simulates a 6-sided electronic die. When the capacitive touch sensor is touched,
-  a spinning animation pattern is shown on the 7-segment display, followed by a
-  randomly generated number between 1 and 6.
+  Simulates a 6-sided electronic rolling die using a 7-Segment LED display and a push button.
+  When the push button is held down (Pin 12 -> INPUT_PULLUP), a rapid sequence of numbers (1 to 6)
+  is displayed to simulate a rolling motion. When released, a random number between 1 and 6
+  is picked and displayed.
 
-  Hardware Connections:
-  - 7-Segment Display (Common Anode):
-      - Segment A -> Digital Pin 11
-      - Segment B -> Digital Pin 10
-      - Segment C -> Digital Pin 9
-      - Segment D -> Digital Pin 8
-      - Segment E -> Digital Pin 7
-      - Segment F -> Digital Pin 6
-      - Segment G -> Digital Pin 5
-      - Common Anode Pin -> 5V (via 220Ω Resistor)
-  - TTP223 Capacitive Touch Sensor:
-      - VCC -> 5V
-      - GND -> GND
-      - OUT (SIG) -> Digital Pin 3
+  Circuit Connections:
+  - 7-Segment Display (Common Cathode):
+      - Segment A -> Digital Pin 7
+      - Segment B -> Digital Pin 6
+      - Segment C -> Digital Pin 4
+      - Segment D -> Digital Pin 3
+      - Segment E -> Digital Pin 2
+      - Segment F -> Digital Pin 8
+      - Segment G -> Digital Pin 9
+      - Common Cathode Pin -> GND (via 220Ω Resistor)
+  - Push Button:
+      - Terminal 1 -> Digital Pin 12 (Internal Pull-Up enabled)
+      - Terminal 2 -> GND
 */
 
-// Pin Definitions for 7-Segment LED
-const int seg_a = 11;
-const int seg_b = 10;
-const int seg_c = 9;
-const int seg_d = 8;
-const int seg_e = 7;
-const int seg_f = 6;
-const int seg_g = 5;
+// Pin Definitions for 7-Segment Display
+const int A = 7;
+const int B = 6;
+const int C = 4;
+const int D = 3;
+const int E = 2;
+const int F = 8;
+const int G = 9;
 
-// Touch Sensor Pin
-const int sensor = 3;
+// Push Button Pin (Internal Pull-Up)
+const int buttonPin = 12;
 
-int i = 0; // Stores the generated random dice number
+int random_int = 0;
 
-void pattern();
-void sevenSeg();
+// Function prototypes
+void one();
+void two();
+void three();
+void four();
+void five();
+void six();
 
 void setup() {
   // Initialize segment pins as outputs
-  pinMode(seg_a, OUTPUT); 
-  pinMode(seg_b, OUTPUT);
-  pinMode(seg_c, OUTPUT);
-  pinMode(seg_d, OUTPUT);
-  pinMode(seg_e, OUTPUT);
-  pinMode(seg_f, OUTPUT);
-  pinMode(seg_g, OUTPUT);
-  
-  // Touch Sensor Input
-  pinMode(sensor, INPUT);
+  pinMode(A, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT);
+  pinMode(E, OUTPUT);
+  pinMode(F, OUTPUT);
+  pinMode(G, OUTPUT);
 
-  // Play initial idle pattern until first touch
-  while (digitalRead(sensor) == LOW) {
-    pattern(); // Display spinning pattern on 7-segment LED
-  }
-  
+  // Initialize push button with internal pull-up resistor (NO external resistor needed)
+  pinMode(buttonPin, INPUT_PULLUP);
+
   // Seed random number generator with floating analog pin A0
   randomSeed(analogRead(A0));
 }
 
 void loop() {
-  // Trigger dice roll when touch sensor goes HIGH
-  if (digitalRead(sensor) == HIGH) {
-    i = random(1, 7); // Random number between 1 and 6
+  int pusshed = digitalRead(buttonPin);
 
-    // Play rolling animation 3 times
-    for (int pat = 0; pat <= 2; pat++) {
-      pattern();
+  // If push button is pressed (LOW due to INPUT_PULLUP)
+  if (pusshed == LOW) {
+    random_int = random(1, 7); // Pick random number between 1 and 6
+
+    // Rapidly cycle digits to simulate a rolling dice effect
+    one();   delay(20);
+    two();   delay(20);
+    three(); delay(20);
+    four();  delay(20);
+    five();  delay(20);
+    six();   delay(20);
+  } 
+  else {
+    // Display the rolled dice number when button is released
+    switch (random_int) {
+      case 1: one();   break;
+      case 2: two();   break;
+      case 3: three(); break;
+      case 4: four();  break;
+      case 5: five();  break;
+      case 6: six();   break;
     }
-    
-    // Display the rolled dice digit
-    sevenSeg();
+    delay(200);
   }
 }
 
-// Display 1–6 on Common Anode 7-Segment Display (LOW = ON, HIGH = OFF)
-void sevenSeg() {
-  if (i == 1) {
-    digitalWrite(seg_a, HIGH);
-    digitalWrite(seg_b, LOW);
-    digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, HIGH);
-    digitalWrite(seg_e, HIGH);
-    digitalWrite(seg_f, HIGH);
-    digitalWrite(seg_g, HIGH);
-    delay(20); // Digit 1
-  } else if (i == 2) {
-    digitalWrite(seg_a, LOW);
-    digitalWrite(seg_b, LOW);
-    digitalWrite(seg_c, HIGH);
-    digitalWrite(seg_d, LOW);
-    digitalWrite(seg_e, LOW);
-    digitalWrite(seg_f, HIGH);
-    digitalWrite(seg_g, LOW);
-    delay(20); // Digit 2
-  } else if (i == 3) {
-    digitalWrite(seg_a, LOW);
-    digitalWrite(seg_b, LOW);
-    digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, LOW);
-    digitalWrite(seg_e, HIGH);
-    digitalWrite(seg_f, HIGH);
-    digitalWrite(seg_g, LOW);
-    delay(20); // Digit 3
-  } else if (i == 4) {
-    digitalWrite(seg_a, HIGH);
-    digitalWrite(seg_b, LOW);
-    digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, HIGH);
-    digitalWrite(seg_e, HIGH);
-    digitalWrite(seg_f, LOW);
-    digitalWrite(seg_g, LOW);
-    delay(20); // Digit 4
-  } else if (i == 5) {
-    digitalWrite(seg_a, LOW);
-    digitalWrite(seg_b, HIGH);
-    digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, LOW);
-    digitalWrite(seg_e, HIGH);
-    digitalWrite(seg_f, LOW);
-    digitalWrite(seg_g, LOW);
-    delay(20); // Digit 5
-  } else if (i == 6) {
-    digitalWrite(seg_a, LOW);
-    digitalWrite(seg_b, HIGH);
-    digitalWrite(seg_c, LOW);
-    digitalWrite(seg_d, LOW);
-    digitalWrite(seg_e, LOW);
-    digitalWrite(seg_f, LOW);
-    digitalWrite(seg_g, LOW);
-    delay(20); // Digit 6
-  }
+// -------------------------------------------------------------
+// Common Cathode 7-Segment Digit Functions (HIGH = ON, LOW = OFF)
+// -------------------------------------------------------------
+
+void one() {
+  digitalWrite(A, LOW);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, LOW);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, LOW);
 }
 
-// Spinning perimeter animation pattern
-void pattern() {
-  digitalWrite(seg_a, LOW);
-  digitalWrite(seg_b, HIGH);
-  digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH);
-  digitalWrite(seg_e, HIGH);
-  digitalWrite(seg_f, HIGH);
-  digitalWrite(seg_g, HIGH);
-  delay(100);
-  
-  digitalWrite(seg_a, HIGH);
-  digitalWrite(seg_b, LOW);
-  digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH);
-  digitalWrite(seg_e, HIGH);
-  digitalWrite(seg_f, HIGH);
-  digitalWrite(seg_g, HIGH);
-  delay(100);
+void two() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, LOW);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH);
-  digitalWrite(seg_b, HIGH);
-  digitalWrite(seg_c, LOW);
-  digitalWrite(seg_d, HIGH);
-  digitalWrite(seg_e, HIGH);
-  digitalWrite(seg_f, HIGH);
-  digitalWrite(seg_g, HIGH);
-  delay(100);
+void three() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH);
-  digitalWrite(seg_b, HIGH);
-  digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, LOW);
-  digitalWrite(seg_e, HIGH);
-  digitalWrite(seg_f, HIGH);
-  digitalWrite(seg_g, HIGH);
-  delay(100);
+void four() {
+  digitalWrite(A, LOW);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, LOW);
+  digitalWrite(E, LOW);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH);
-  digitalWrite(seg_b, HIGH);
-  digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH);
-  digitalWrite(seg_e, LOW);
-  digitalWrite(seg_f, HIGH);
-  digitalWrite(seg_g, HIGH);
-  delay(100);
+void five() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, LOW);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, LOW);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+}
 
-  digitalWrite(seg_a, HIGH);
-  digitalWrite(seg_b, HIGH);
-  digitalWrite(seg_c, HIGH);
-  digitalWrite(seg_d, HIGH);
-  digitalWrite(seg_e, HIGH);
-  digitalWrite(seg_f, LOW);
-  digitalWrite(seg_g, HIGH);
-  delay(100);
+void six() {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, LOW);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
 }
