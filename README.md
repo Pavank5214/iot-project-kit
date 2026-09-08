@@ -12,40 +12,17 @@ iot-project-kit/
 ├── README.md                          # Main repository overview & index
 └── projects/                          # Individual IoT project guides
     ├── 01-led-blinking/               # Project 01: LED Blinking
-    │   ├── README.md                  # Project documentation & schematic
-    │   ├── 01_led_blinking.ino        # Arduino source code sketch
-    │   └── assets/
-    │       └── led-blinking.png       # Circuit diagram
-    │
     ├── 02-traffic-light/              # Project 02: Traffic Light Controller
-    │   ├── README.md                  # Project documentation & schematic
-    │   ├── 02_traffic_light.ino        # Arduino source code sketch
-    │   └── assets/
-    │       └── traffic-light.png      # Circuit diagram
-    │
     ├── 03-rock-paper-scissors/        # Project 03: Rock Paper Scissors OLED Game
-    │   ├── README.md                  # Project documentation & schematic
-    │   ├── 03_rock_paper_scissors.ino # Arduino source code sketch
-    │   └── assets/
-    │       └── push-button-game.png   # Circuit diagram
-    │
     ├── 04-electronic-dice/            # Project 04: Electronic Die with Touch/Button
-    │   ├── README.md                  # Project documentation & schematic
-    │   ├── 04_electronic_dice.ino      # Arduino source code sketch
-    │   └── assets/
-    │       └── dice.png               # Circuit diagram
-    │
     ├── 05-rgb-mood-lamp/              # Project 05: RGB Mood Lamp / Smooth Color Fader
-    │   ├── README.md                  # Project documentation & schematic
-    │   ├── 05_rgb_mood_lamp.ino        # Arduino source code sketch
-    │   └── assets/
-    │       └── mood-lamp.png          # Circuit diagram
-    │
-    └── 06-digital-stopwatch/          # Project 06: Digital Stopwatch with OLED Display
-        ├── README.md                  # Project documentation & schematic
-        ├── 06_digital_stopwatch.ino    # Arduino source code sketch
-        └── assets/
-            └── stopwatch.png          # Circuit diagram (Reuses Project 03 layout)
+    ├── 06-digital-stopwatch/          # Project 06: Digital Stopwatch with OLED Display
+    ├── 07-buzzer-reaction-game/       # Project 07: Buzzer Reaction Game
+    ├── 08-weather-monitor/            # Project 08: Weather Monitor (DHT11 + OLED)
+    ├── 09-temperature-alarm/          # Project 09: Temperature Alarm (DHT11 + Buzzer)
+    ├── 10-distance-meter/             # Project 10: Digital Distance Meter (HC-SR04)
+    ├── 11-parking-indicator/          # Project 11: Smart Parking Indicator (HC-SR04 + LEDs)
+    └── 12-motion-alarm/               # Project 12: Motion Alarm (PIR Sensor + Buzzer)
 ```
 
 ---
@@ -60,6 +37,12 @@ iot-project-kit/
 | **04** | **Electronic Die** | Arduino Uno, 7-Seg Display, Push Button | `Easy` | ✅ Completed | [View Guide 📖](projects/04-electronic-dice/) |
 | **05** | **RGB Mood Lamp** | Arduino Uno, 4-Pin RGB LED, Resistors | `Easy` | ✅ Completed | [View Guide 📖](projects/05-rgb-mood-lamp/) |
 | **06** | **Digital Stopwatch** | Arduino Uno, SSD1306 OLED, 3x Buttons | `Medium` | ✅ Completed | [View Guide 📖](projects/06-digital-stopwatch/) |
+| **07** | **Buzzer Reaction Game** | Arduino Uno, SSD1306 OLED, Button, Buzzer | `Easy` | ✅ Completed | [View Guide 📖](projects/07-buzzer-reaction-game/) |
+| **08** | **Weather Monitor** | Arduino Uno, DHT11 Sensor, SSD1306 OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/08-weather-monitor/) |
+| **09** | **Temperature Alarm** | Arduino Uno, DHT11 Sensor, Buzzer, OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/09-temperature-alarm/) |
+| **10** | **Digital Distance Meter** | Arduino Uno, HC-SR04 Sensor, SSD1306 OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/10-distance-meter/) |
+| **11** | **Smart Parking Indicator** | Arduino Uno, HC-SR04 Sensor, 3x LEDs, Buzzer, OLED | `Medium` | ✅ Completed | [View Guide 📖](projects/11-parking-indicator/) |
+| **12** | **Motion Alarm** | Arduino Uno, PIR Sensor, Buzzer, SSD1306 OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/12-motion-alarm/) |
 
 ---
 
@@ -67,9 +50,9 @@ iot-project-kit/
 
 - **Microcontroller**: Arduino Uno R3 / Nano / ESP32
 - **Displays**: 0.96" I2C OLED (SSD1306), 7-Segment LED Display (Common Cathode)
-- **Actuators & Lighting**: 4-Pin RGB LED (Common Cathode), LEDs (Red, Yellow, Green)
-- **Sensors & Inputs**: Push Buttons, TTP223 Capacitive Touch Sensor
-- **Basic Components**: Breadboard, Resistors (220Ω, 10kΩ), Jumper Wires
+- **Sensors**: DHT11 Temp & Humidity, HC-SR04 Ultrasonic Distance, HC-SR501 PIR Motion
+- **Actuators & Audio**: Piezo Buzzer, 4-Pin RGB LED (Common Cathode), LEDs (Red, Yellow, Green)
+- **Inputs & Passive Components**: Push Buttons, Resistors (220Ω, 10kΩ), Breadboard, Jumper Wires
 - **Software**: Arduino IDE / PlatformIO / Web Editor
 
 ---
@@ -80,7 +63,7 @@ iot-project-kit/
    ```bash
    git clone https://github.com/Pavank5214/iot-project-kit.git
    ```
-2. Navigate to any project folder under `projects/` (e.g., `projects/06-digital-stopwatch/`).
+2. Navigate to any project folder under `projects/` (e.g., `projects/07-buzzer-reaction-game/`).
 3. Open the `.ino` file in **Arduino IDE**.
 4. Wire your circuit according to the provided `README.md` diagram.
 5. Select your board (`Tools -> Board -> Arduino Uno`) and COM port, then click **Upload**.
