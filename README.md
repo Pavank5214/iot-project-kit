@@ -23,7 +23,8 @@ iot-project-kit/
     ├── 10-distance-meter/             # Project 10: Digital Distance Meter (HC-SR04)
     ├── 11-parking-indicator/          # Project 11: Smart Parking Indicator (HC-SR04 + LEDs)
     ├── 12-motion-alarm/               # Project 12: Motion Alarm (PIR Sensor + Buzzer)
-    └── 13-door-alarm/                 # Project 13: Door Alarm (Reed Switch + Buzzer)
+    ├── 13-door-alarm/                 # Project 13: Door Alarm (Reed Switch + Buzzer)
+    └── 14-touchless-doorbell/         # Project 14: Touchless Doorbell (Ultrasonic + Buzzer)
 ```
 
 ---
@@ -45,6 +46,7 @@ iot-project-kit/
 | **11** | **Smart Parking Indicator** | Arduino Uno, HC-SR04 Sensor, 3x LEDs, Buzzer, OLED | `Medium` | ✅ Completed | [View Guide 📖](projects/11-parking-indicator/) |
 | **12** | **Motion Alarm** | Arduino Uno, PIR Sensor, Buzzer, SSD1306 OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/12-motion-alarm/) |
 | **13** | **Door Alarm** | Arduino Uno, Reed Switch Module, Buzzer, OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/13-door-alarm/) |
+| **14** | **Touchless Doorbell** | Arduino Uno, HC-SR04 Sensor, Buzzer, OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/14-touchless-doorbell/) |
 
 ---
 
