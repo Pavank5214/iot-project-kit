@@ -45,6 +45,9 @@ This project introduces:
 
 ## Circuit Diagram
 
+### Wiring Diagram
+![Motion Alarm Circuit Diagram](assets/motion-alarm.png)
+
 ### Schematic (ASCII)
 
 ```text
@@ -60,9 +63,6 @@ Arduino UNO
       D2 ───────────[ PIR OUT ] (VCC -> 5V, GND -> GND)
       D8 ───────────[ Piezo Buzzer (+) ] ────> GND
 ```
-
-> [!NOTE]
-> *Circuit diagram image will be updated as soon as provided.*
 
 ---
 
