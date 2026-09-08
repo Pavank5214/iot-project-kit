@@ -24,7 +24,8 @@ iot-project-kit/
     ├── 11-parking-indicator/          # Project 11: Smart Parking Indicator (HC-SR04 + LEDs)
     ├── 12-motion-alarm/               # Project 12: Motion Alarm (PIR Sensor + Buzzer)
     ├── 13-door-alarm/                 # Project 13: Door Alarm (Reed Switch + Buzzer)
-    └── 14-touchless-doorbell/         # Project 14: Touchless Doorbell (Ultrasonic + Buzzer)
+    ├── 14-touchless-doorbell/         # Project 14: Touchless Doorbell (Ultrasonic + Buzzer)
+    └── 15-rain-alarm/                 # Project 15: Rain Alarm (Raindrop Sensor + Buzzer)
 ```
 
 ---
@@ -47,6 +48,7 @@ iot-project-kit/
 | **12** | **Motion Alarm** | Arduino Uno, PIR Sensor, Buzzer, SSD1306 OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/12-motion-alarm/) |
 | **13** | **Door Alarm** | Arduino Uno, Reed Switch Module, Buzzer, OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/13-door-alarm/) |
 | **14** | **Touchless Doorbell** | Arduino Uno, HC-SR04 Sensor, Buzzer, OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/14-touchless-doorbell/) |
+| **15** | **Rain Alarm** | Arduino Uno, Raindrop Sensor Module, Buzzer, OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/15-rain-alarm/) |
 
 ---
 
@@ -54,7 +56,7 @@ iot-project-kit/
 
 - **Microcontroller**: Arduino Uno R3 / Nano / ESP32
 - **Displays**: 0.96" I2C OLED (SSD1306), 7-Segment LED Display (Common Cathode)
-- **Sensors**: DHT11 Temp & Humidity, HC-SR04 Ultrasonic Distance, HC-SR501 PIR Motion, Magnetic Reed Switch Module
+- **Sensors**: DHT11 Temp & Humidity, HC-SR04 Ultrasonic Distance, HC-SR501 PIR Motion, Magnetic Reed Switch Module, Raindrop Sensor Module
 - **Actuators & Audio**: Piezo Buzzer, 4-Pin RGB LED (Common Cathode), LEDs (Red, Yellow, Green)
 - **Inputs & Passive Components**: Push Buttons, Resistors (220Ω, 10kΩ), Breadboard, Jumper Wires
 - **Software**: Arduino IDE / PlatformIO / Web Editor
