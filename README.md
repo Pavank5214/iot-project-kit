@@ -66,8 +66,8 @@ iot-project-kit/
 
 > [!TIP]
 > **Key Kit Features:**
-> - **100% Resistor-Free Design**: No external resistors needed! All sensors, modules, and displays include integrated onboard circuitry, and push buttons use Arduino's internal `INPUT_PULLUP` resistors.
 > - **100% USB-Powered**: Everything runs directly off 5V supplied by the Arduino USB cable connected to your computer. No external batteries (e.g. 9V) or DC adapters are required!
+> - **Module & Discrete Prototyping**: All sensor boards, displays, and modules feature onboard signal conditioning. Standard 220Ω, 1kΩ, and 10kΩ resistors are included for wiring discrete LEDs, displays, and general prototyping.
 
 ### 1. Core Microcontroller & Prototyping
 | Item | Qty | Specifications / Notes | Used in Projects |
@@ -103,13 +103,20 @@ iot-project-kit/
 | :--- | :---: | :--- | :--- |
 | **Active 5V Piezo Buzzer** | 1 | 5V continuous audio buzzer (+ and - pins) | Projects 07, 09, 11, 12, 13, 14, 15, 17, 19, 20 |
 | **Traffic Light Module (3-in-1)** | 1 | Integrated Red/Yellow/Green LED module with onboard resistors | Projects 02, 11 |
-| **5mm LEDs (Assorted)** | 3–5 | Red, Yellow, Green standard 5mm LEDs | Projects 01, 11 |
+| **5mm LEDs (Assorted)** | 5 | Red, Yellow, Green standard 5mm LEDs | Projects 01, 11 |
 | **4-Pin RGB LED** | 1 | **Common Cathode** 5mm RGB LED or RGB Module | Project 05 |
 
 ### 5. Inputs & Switches
 | Item | Qty | Specifications / Notes | Used in Projects |
 | :--- | :---: | :--- | :--- |
-| **Tactile Push Buttons** | 3–4 | 6x6mm mini tactile momentary switches (direct to pin + GND) | Projects 03, 04, 06, 07 |
+| **Tactile Push Buttons** | 4 | 6x6mm mini tactile momentary switches | Projects 03, 04, 06, 07 |
+
+### 6. Resistors (For LEDs & Prototyping)
+| Item | Qty | Specifications / Notes | Purpose |
+| :--- | :---: | :--- | :--- |
+| **220Ω Resistors** | 10 | 1/4W through-hole | Current-limiting for 5mm LEDs & 7-Segment display |
+| **10kΩ Resistors** | 5 | 1/4W through-hole | General pull-up / pull-down circuitry |
+| **1kΩ Resistors** | 5 | 1/4W through-hole | General purpose electronics prototyping |
 
 ---
 
