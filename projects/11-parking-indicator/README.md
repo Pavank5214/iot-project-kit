@@ -19,10 +19,9 @@ This project introduces:
 
 | Component | Quantity | Notes |
 | :--- | :---: | :--- |
-| **Arduino Uno** | 1 | Microcontroller board |
+| **Arduino Uno** | 1 | Microcontroller board (powered via USB) |
 | **HC-SR04 Ultrasonic Sensor** | 1 | Distance sensor |
-| **5mm LEDs** | 3 | 1x Green, 1x Yellow, 1x Red |
-| **220Ω Resistors** | 3 | Resistors for LEDs |
+| **Traffic Light Module (or 3x LEDs)** | 1 | Integrated 3-LED module with built-in resistors (Green, Yellow, Red) |
 | **Piezo Buzzer** | 1 | Audio warning module (+ to D8, - to GND) |
 | **0.96" I2C OLED Display** | 1 | 128x64 pixels (SSD1306 controller, address `0x3C`) |
 | **Breadboard & Jumpers** | 1 | Solderless board & wires |

@@ -26,7 +26,7 @@ This project introduces:
 | Component | Quantity | Notes |
 | :--- | :---: | :--- |
 | **Arduino Uno** | 1 | Microcontroller board |
-| **Traffic Light Module** *(or 3x 5mm LEDs)* | 1 | Integrated 3-LED traffic light board (or 1x Red, 1x Yellow, 1x Green LED + 3x 220Ω resistors) |
+| **Traffic Light Module** | 1 | Integrated 3-LED traffic light board with built-in SMD resistors (Pins: R, Y, G, GND) |
 | **Jumper Wires** | 4 | Male-to-Female or Male-to-Male wires |
 
 ---

@@ -39,11 +39,11 @@ iot-project-kit/
 
 | # | Project Name | Hardware Used | Difficulty | Status | Documentation |
 | :-: | :--- | :--- | :-: | :-: | :-: |
-| **01** | **LED Blinking** | Arduino Uno, LED, 220Ω Resistor | `Easy` | ✅ Completed | [View Guide 📖](projects/01-led-blinking/) |
+| **01** | **LED Blinking** | Arduino Uno, 5mm LED | `Easy` | ✅ Completed | [View Guide 📖](projects/01-led-blinking/) |
 | **02** | **Traffic Light Controller** | Arduino Uno, 3-LED Traffic Light Module | `Easy` | ✅ Completed | [View Guide 📖](projects/02-traffic-light/) |
 | **03** | **Rock Paper Scissors Game** | Arduino Uno, SSD1306 OLED, 3x Buttons | `Medium` | ✅ Completed | [View Guide 📖](projects/03-rock-paper-scissors/) |
 | **04** | **Electronic Die** | Arduino Uno, 7-Seg Display, Push Button | `Easy` | ✅ Completed | [View Guide 📖](projects/04-electronic-dice/) |
-| **05** | **RGB Mood Lamp** | Arduino Uno, 4-Pin RGB LED, Resistors | `Easy` | ✅ Completed | [View Guide 📖](projects/05-rgb-mood-lamp/) |
+| **05** | **RGB Mood Lamp** | Arduino Uno, 4-Pin RGB LED | `Easy` | ✅ Completed | [View Guide 📖](projects/05-rgb-mood-lamp/) |
 | **06** | **Digital Stopwatch** | Arduino Uno, SSD1306 OLED, 3x Buttons | `Medium` | ✅ Completed | [View Guide 📖](projects/06-digital-stopwatch/) |
 | **07** | **Buzzer Reaction Game** | Arduino Uno, SSD1306 OLED, Button, Buzzer | `Easy` | ✅ Completed | [View Guide 📖](projects/07-buzzer-reaction-game/) |
 | **08** | **Weather Monitor** | Arduino Uno, DHT11 Sensor, SSD1306 OLED | `Easy` | ✅ Completed | [View Guide 📖](projects/08-weather-monitor/) |
@@ -64,12 +64,15 @@ iot-project-kit/
 
 ## 🛠️ Hardware Kit / Shopping List (Bill of Materials)
 
-To build all 20 projects in this repository, here is the complete checklist of items needed for purchase or to bundle as a comprehensive IoT kit:
+> [!TIP]
+> **Key Kit Features:**
+> - **100% Resistor-Free Design**: No external resistors needed! All sensors, modules, and displays include integrated onboard circuitry, and push buttons use Arduino's internal `INPUT_PULLUP` resistors.
+> - **100% USB-Powered**: Everything runs directly off 5V supplied by the Arduino USB cable connected to your computer. No external batteries (e.g. 9V) or DC adapters are required!
 
 ### 1. Core Microcontroller & Prototyping
 | Item | Qty | Specifications / Notes | Used in Projects |
 | :--- | :---: | :--- | :--- |
-| **Arduino Uno R3** | 1 | Microcontroller board with USB-A to Type-B cable | All Projects (01–20) |
+| **Arduino Uno R3** | 1 | Microcontroller board with USB-A to Type-B programming cable | All Projects (01–20) |
 | **Solderless Breadboard** | 1 | Standard 830 tie-points (or 400 tie-points) | All Projects (01–20) |
 | **Jumper Wires (M-to-M)** | ~30–40 | Male-to-Male prototyping wires | Projects 01–20 |
 | **Jumper Wires (M-to-F)** | ~15–20 | Male-to-Female wires (for module header pins) | Projects 08–20 |
@@ -99,17 +102,14 @@ To build all 20 projects in this repository, here is the complete checklist of i
 | Item | Qty | Specifications / Notes | Used in Projects |
 | :--- | :---: | :--- | :--- |
 | **Active 5V Piezo Buzzer** | 1 | 5V continuous audio buzzer (+ and - pins) | Projects 07, 09, 11, 12, 13, 14, 15, 17, 19, 20 |
-| **Traffic Light Module (3-in-1)** | 1 | Integrated Red/Yellow/Green LED module *(or discrete LEDs)* | Project 02 |
-| **5mm LEDs (Assorted)** | 5–10 | At least 2x Red, 2x Yellow, 2x Green standard LEDs | Projects 01, 02, 11 |
-| **4-Pin RGB LED** | 1 | **Common Cathode** 5mm RGB LED | Project 05 |
+| **Traffic Light Module (3-in-1)** | 1 | Integrated Red/Yellow/Green LED module with onboard resistors | Projects 02, 11 |
+| **5mm LEDs (Assorted)** | 3–5 | Red, Yellow, Green standard 5mm LEDs | Projects 01, 11 |
+| **4-Pin RGB LED** | 1 | **Common Cathode** 5mm RGB LED or RGB Module | Project 05 |
 
-### 5. Inputs & Passive Components
+### 5. Inputs & Switches
 | Item | Qty | Specifications / Notes | Used in Projects |
 | :--- | :---: | :--- | :--- |
-| **Tactile Push Buttons** | 3–4 | 6x6mm mini tactile momentary switches | Projects 03, 04, 06, 07 |
-| **220Ω Resistors** | 10 | 1/4W through-hole (current limiting for LEDs and 7-segment) | Projects 01, 02, 04, 05, 11 |
-| **10kΩ Resistors** | 5 | 1/4W through-hole (general pull-up / pull-down) | General prototyping |
-| **9V Battery Clip with DC Jack** | 1 | *(Optional)* For powering Arduino without a PC connection | Standalone demos |
+| **Tactile Push Buttons** | 3–4 | 6x6mm mini tactile momentary switches (direct to pin + GND) | Projects 03, 04, 06, 07 |
 
 ---
 

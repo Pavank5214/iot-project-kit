@@ -7,10 +7,10 @@
   generated colors using Pulse Width Modulation (PWM) and linear interpolation.
 
   Circuit Connections:
-  - Red Pin   -> PWM Pin 11 (via 220Ω Resistor)
-  - Green Pin -> PWM Pin 10 (via 220Ω Resistor)
-  - Blue Pin  -> PWM Pin 9  (via 220Ω Resistor)
-  - Cathode   -> GND (Common Cathode RGB LED)
+  - Red Pin   -> PWM Pin 11
+  - Green Pin -> PWM Pin 10
+  - Blue Pin  -> PWM Pin 9
+  - Cathode   -> GND (Common Cathode RGB LED / Module, powered via USB)
 */
 
 // Color arrays for interpolation

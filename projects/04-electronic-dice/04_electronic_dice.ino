@@ -17,10 +17,10 @@
       - Segment E -> Digital Pin 2
       - Segment F -> Digital Pin 8
       - Segment G -> Digital Pin 9
-      - Common Cathode Pin -> GND (via 220Ω Resistor)
+      - Common Cathode Pin -> GND (Direct connection, no external resistor)
   - Push Button:
       - Terminal 1 -> Digital Pin 12 (Internal Pull-Up enabled)
-      - Terminal 2 -> GND
+      - Terminal 2 -> GND (NO external resistor)
 */
 
 // Pin Definitions for 7-Segment Display

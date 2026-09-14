@@ -26,12 +26,10 @@ This project introduces key embedded systems concepts:
 
 | Component | Quantity | Notes |
 | :--- | :---: | :--- |
-| **Arduino Uno** | 1 | Microcontroller board |
+| **Arduino Uno** | 1 | Microcontroller board (powered via USB) |
 | **1-Digit 7-Segment Display** | 1 | **Common Cathode** type |
-| **Push Button** | 1 | Tactile switch |
-| **220Ω Resistor** | 1 | Current-limiting resistor for Common Cathode GND pin |
-| **Breadboard** | 1 | Solderless prototyping board |
-| **Jumper Wires** | 9–10 | Male-to-Male wires |
+| **Push Button** | 1 | Tactile switch (uses internal `INPUT_PULLUP`) |
+| **Breadboard & Jumpers** | 1 | Solderless prototyping board & wires |
 
 ---
 
@@ -60,7 +58,7 @@ This project introduces key embedded systems concepts:
 | **Segment E** | **Digital Pin 2** | Lower-left segment |
 | **Segment F** | **Digital Pin 8** | Upper-left segment |
 | **Segment G** | **Digital Pin 9** | Middle segment |
-| **Common Cathode (-)** | **GND** | Connected via 220Ω Resistor |
+| **Common Cathode (-)** | **GND** | Direct ground connection (no external resistor needed) |
 
 ### Push Button Wiring
 

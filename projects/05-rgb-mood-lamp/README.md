@@ -26,11 +26,9 @@ This project introduces core embedded engineering concepts:
 
 | Component | Quantity | Notes |
 | :--- | :---: | :--- |
-| **Arduino Uno** | 1 | Microcontroller board |
-| **RGB LED** | 1 | **Common Cathode** (4-pin module/LED) |
-| **220Ω Resistors** | 3 | Current-limiting resistors for Red, Green, Blue pins |
-| **Breadboard** | 1 | Solderless prototyping board |
-| **Jumper Wires** | 4–6 | Male-to-Male wires |
+| **Arduino Uno** | 1 | Microcontroller board (powered via USB) |
+| **RGB LED** | 1 | **Common Cathode** (4-pin LED or RGB LED Module) |
+| **Breadboard & Jumpers** | 1 | Solderless prototyping board & wires |
 
 ---
 
@@ -46,21 +44,21 @@ A standard 4-pin RGB LED has pins arranged as follows:
           Longest Leg
 ```
 
-1. **Pin 1 (Anode Red)**: Connect to Pin 11 via 220Ω resistor.
+1. **Pin 1 (Anode Red)**: Connect to Pin 11.
 2. **Pin 2 (Cathode)**: **Longest leg** — Connect directly to GND.
-3. **Pin 3 (Anode Green)**: Connect to Pin 10 via 220Ω resistor.
-4. **Pin 4 (Anode Blue)**: Connect to Pin 9 via 220Ω resistor.
+3. **Pin 3 (Anode Green)**: Connect to Pin 10.
+4. **Pin 4 (Anode Blue)**: Connect to Pin 9.
 
 ---
 
 ## Circuit Connections
 
-| Component Lead | Resistor Connection | Arduino Uno Pin | Description |
-| :--- | :--- | :--- | :--- |
-| **Red Anode Pin** | 220Ω Resistor | **Digital Pin 11** (~PWM) | Controls Red intensity |
-| **Green Anode Pin** | 220Ω Resistor | **Digital Pin 10** (~PWM) | Controls Green intensity |
-| **Blue Anode Pin** | 220Ω Resistor | **Digital Pin 9** (~PWM) | Controls Blue intensity |
-| **Common Cathode** | Direct Connection | **GND** | Ground reference |
+| Component Lead | Arduino Uno Pin | Description |
+| :--- | :--- | :--- |
+| **Red Anode Pin** | **Digital Pin 11** (~PWM) | Controls Red intensity |
+| **Green Anode Pin** | **Digital Pin 10** (~PWM) | Controls Green intensity |
+| **Blue Anode Pin** | **Digital Pin 9** (~PWM) | Controls Blue intensity |
+| **Common Cathode** | **GND** | Ground reference |
 
 ---
 

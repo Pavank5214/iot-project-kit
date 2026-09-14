@@ -6,9 +6,8 @@
   Demonstrates basic digital output by turning an LED ON and OFF at 1-second intervals.
   
   Circuit Connections:
-  - Arduino Pin 13  -> 220Ω Resistor
-  - Resistor        -> LED Anode (+)
-  - LED Cathode (-) -> GND
+  - LED Anode (+)   -> Arduino Pin 13
+  - LED Cathode (-) -> GND (No external resistor required; powered via USB)
 */
 
 // Define the digital pin connected to the LED
