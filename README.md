@@ -1,6 +1,13 @@
 # IoT Project Kit 🧰⚡
 
-Welcome to the **IoT Project Kit** repository! This collection contains step-by-step projects, circuit schematics, source code, and documentation designed for learning Internet of Things (IoT) and embedded systems hardware using **Arduino Uno**, sensors, and actuators.
+Welcome to the **IoT Project Kit** repository! This collection contains step-by-step projects, circuit schematics, source code, and documentation designed for learning Internet of Things (IoT) and embedded systems hardware using **Arduino Uno**, **ESP32**, sensors, and actuators.
+
+<p align="center">
+  <img src="assets/poster-with-qr.png" alt="IoT Project Kit Exhibition Poster" width="560" />
+</p>
+<p align="center">
+  <i>Scan the QR code on the poster or open <a href="https://github.com/Pavank5214/iot-project-kit">github.com/Pavank5214/iot-project-kit</a> to explore all 30 projects!</i>
+</p>
 
 ---
 
@@ -9,6 +16,12 @@ Welcome to the **IoT Project Kit** repository! This collection contains step-by-
 ```text
 iot-project-kit/
 │
+├── assets/                            # Exhibition posters & scannable repository QR code
+│   ├── qr-code.png                    # High-resolution scannable QR code card
+│   ├── poster-art.png                 # AI concept exhibition poster artwork
+│   ├── poster-with-qr.png             # Exhibition poster with embedded scannable QR code
+│   └── project-catalog-poster.png     # Full 30-project infographic catalog poster
+├── poster.html                        # Interactive & printable A4/A3 exhibition poster
 ├── README.md                          # Main repository overview & index
 └── projects/                          # Individual IoT project guides
     ├── 01-led-blinking/               # Project 01: LED Blinking
@@ -144,6 +157,17 @@ iot-project-kit/
 | **220Ω Resistors** | 10 | 1/4W through-hole | Current-limiting for 5mm LEDs & 7-Segment display |
 | **10kΩ Resistors** | 5 | 1/4W through-hole | General pull-up / pull-down circuitry |
 | **1kΩ Resistors** | 5 | 1/4W through-hole | General purpose electronics prototyping |
+
+---
+
+## 🖼️ Exhibition Posters & QR Code
+
+| Exhibition Poster with QR Code | 30-Project Catalog Poster | Standalone QR Code Card |
+| :---: | :---: | :---: |
+| [![IoT Kit Poster](assets/poster-with-qr.png)](assets/poster-with-qr.png) | [![Project Catalog](assets/project-catalog-poster.png)](assets/project-catalog-poster.png) | [![QR Code](assets/qr-code.png)](assets/qr-code.png) |
+
+* **Printable Web Poster**: Open [`poster.html`](poster.html) in any web browser and press <kbd>Ctrl</kbd> + <kbd>P</kbd> (<kbd>Cmd</kbd> + <kbd>P</kbd>) to print directly or export as a clean A4/A3 PDF for science exhibitions, college maker fairs, or lab displays.
+* **Direct Repository URL**: [https://github.com/Pavank5214/iot-project-kit](https://github.com/Pavank5214/iot-project-kit)
 
 ---
 
