@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IoT Project Kit — 30 Hands-On Projects Poster</title>
+  <title>IoT Project Kit — Exhibition Posters & Learning Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b0f19;
-      --card-bg: #111827;
+      --bg: #080d1a;
+      --card-bg: #0f172a;
       --card-border: #1e293b;
       --cyan: #38bdf8;
       --emerald: #34d399;
-      --rose: #f43f5e;
       --purple: #a855f7;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
       --text: #f8fafc;
       --text-muted: #94a3b8;
     }
@@ -33,434 +34,329 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px;
+      padding: 32px 20px;
       min-height: 100vh;
     }
 
-    /* Print / Action Bar */
-    .action-bar {
+    /* Navigation Bar */
+    .nav-bar {
       display: flex;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       position: sticky;
       top: 16px;
       z-index: 100;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
-      padding: 10px 18px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(14px);
+      padding: 10px 20px;
       border-radius: 9999px;
       border: 1px solid #334155;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
     }
 
-    .btn {
-      background: var(--cyan);
-      color: #020617;
+    .nav-btn {
+      background: transparent;
+      color: var(--text-muted);
       font-weight: 700;
       font-size: 14px;
-      border: none;
+      border: 1px solid transparent;
       padding: 8px 18px;
       border-radius: 9999px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: all 0.2s ease;
       text-decoration: none;
     }
 
-    .btn:hover {
+    .nav-btn.active, .nav-btn:hover {
+      color: #fff;
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .nav-btn.primary {
+      background: var(--cyan);
+      color: #020617;
+      border-color: var(--cyan);
+    }
+
+    .nav-btn.primary:hover {
       background: #7dd3fc;
       transform: translateY(-1px);
     }
 
-    .btn-secondary {
-      background: #1e293b;
-      color: var(--text);
-      border: 1px solid #334155;
-    }
-
-    .btn-secondary:hover {
-      background: #334155;
-    }
-
-    /* Poster Container (Scaled A4) */
-    .poster {
+    /* Container */
+    .portal-container {
       width: 100%;
-      max-width: 900px;
-      background: var(--bg);
-      border: 2px solid #1e293b;
-      border-radius: 16px;
-      padding: 40px;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
-      position: relative;
-      overflow: hidden;
+      max-width: 1200px;
     }
 
-    .poster::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, var(--cyan), var(--emerald), var(--purple));
+    .header-section {
+      text-align: center;
+      margin-bottom: 40px;
     }
 
-    /* Header */
-    .tag {
+    .badge {
       display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       background: rgba(56, 189, 248, 0.1);
+      color: var(--cyan);
       border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 4px 10px;
-      border-radius: 6px;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
     }
 
-    .title {
-      font-size: 42px;
+    h1 {
+      font-size: 40px;
       font-weight: 800;
       letter-spacing: -0.5px;
-      line-height: 1.1;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       background: linear-gradient(135deg, #ffffff 40%, var(--cyan) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .subtitle {
-      font-size: 16px;
+    p.lead {
+      font-size: 17px;
       color: var(--text-muted);
-      margin-bottom: 24px;
+      max-width: 750px;
+      margin: 0 auto;
+      line-height: 1.6;
     }
 
-    /* Stats Row */
-    .stats-row {
+    /* Poster Preview Cards Grid */
+    .posters-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 40px;
     }
 
-    .stat-card {
-      background: #131c2e;
-      border: 1px solid #1e2d4a;
-      border-radius: 10px;
-      padding: 14px 12px;
-      text-align: center;
+    .poster-showcase-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .poster-showcase-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.25);
+    }
+
+    .card-banner {
+      height: 380px;
+      overflow: hidden;
+      background: #080d1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
       position: relative;
     }
 
-    .stat-card::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--cyan);
-      border-radius: 10px 10px 0 0;
+    .card-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.3s ease;
     }
 
-    .stat-card:nth-child(2)::after { background: var(--emerald); }
-    .stat-card:nth-child(3)::after { background: var(--purple); }
-    .stat-card:nth-child(4)::after { background: #f59e0b; }
-
-    .stat-num {
-      font-size: 26px;
-      font-weight: 800;
-      color: #fff;
+    .poster-showcase-card:hover .card-banner img {
+      transform: scale(1.02);
     }
 
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    /* Projects Grid */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 32px;
-    }
-
-    .category-box {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .category-header {
-      background: #1e293b;
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .category-header.cyan { color: var(--cyan); border-left: 4px solid var(--cyan); }
-    .category-header.emerald { color: var(--emerald); border-left: 4px solid var(--emerald); }
-    .category-header.rose { color: var(--rose); border-left: 4px solid var(--rose); }
-    .category-header.purple { color: var(--purple); border-left: 4px solid var(--purple); }
-
-    .project-list {
-      list-style: none;
-      padding: 12px 16px;
+    .card-content {
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      flex-grow: 1;
     }
 
-    .project-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 12.5px;
-      color: #e2e8f0;
-    }
-
-    .proj-badge {
-      font-family: 'JetBrains Mono', monospace;
+    .card-tag {
       font-size: 11px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #1e293b;
-      min-width: 26px;
-      text-align: center;
-    }
-
-    .cyan .proj-badge { color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
-    .emerald .proj-badge { color: var(--emerald); border: 1px solid rgba(52, 211, 153, 0.3); }
-    .rose .proj-badge { color: var(--rose); border: 1px solid rgba(244, 63, 94, 0.3); }
-    .purple .proj-badge { color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
-
-    /* Footer & QR */
-    .poster-footer {
-      background: #0f172a;
-      border: 1px solid var(--cyan);
-      border-radius: 12px;
-      padding: 24px;
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .qr-card-img {
-      width: 140px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      flex-shrink: 0;
-    }
-
-    .footer-content h3 {
-      font-size: 18px;
-      font-weight: 700;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       color: var(--cyan);
-      margin-bottom: 4px;
-    }
-
-    .footer-content p {
-      font-size: 13px;
-      color: var(--text-muted);
       margin-bottom: 8px;
     }
 
-    .repo-link {
-      font-family: 'JetBrains Mono', monospace;
+    .card-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .card-features {
+      list-style: none;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .card-features li {
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-features li::before {
+      content: "✓";
+      color: var(--emerald);
+      font-weight: bold;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .card-actions .btn {
+      flex: 1;
+      text-align: center;
+      justify-content: center;
+      padding: 10px 18px;
       font-size: 14px;
       font-weight: 700;
-      color: var(--emerald);
+      border-radius: 12px;
       text-decoration: none;
-      display: inline-block;
-      margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .repo-link:hover {
-      text-decoration: underline;
+    .btn-cyan {
+      background: var(--cyan);
+      color: #020617;
+    }
+    .btn-cyan:hover { background: #7dd3fc; }
+
+    .btn-outline {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #334155;
+    }
+    .btn-outline:hover { background: #334155; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 32px;
+      border-top: 1px solid var(--card-border);
+      font-size: 13px;
+      color: var(--text-muted);
     }
 
-    .footer-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 11px;
-      color: #94a3b8;
+    footer a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    .footer-features span {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3px 8px;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    @media print {
-      body {
-        background: #ffffff !important;
-        padding: 0 !important;
-      }
-      .action-bar {
-        display: none !important;
-      }
-      .poster {
-        max-width: 100% !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 20px !important;
-        background: #ffffff !important;
-        color: #0f172a !important;
-      }
-      .poster::before {
-        background: #0284c7 !important;
-      }
-      .title {
-        background: none !important;
-        -webkit-text-fill-color: #0f172a !important;
-      }
-      .subtitle, .stat-label, .project-item {
-        color: #334155 !important;
-      }
-      .stat-card, .category-box, .poster-footer {
-        background: #f8fafc !important;
-        border-color: #cbd5e1 !important;
-      }
-      .category-header {
-        background: #f1f5f9 !important;
-      }
-      .stat-num {
-        color: #0284c7 !important;
+    @media (max-width: 900px) {
+      .posters-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="action-bar">
-    <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
-    <a class="btn btn-secondary" href="https://github.com/Pavank5214/iot-project-kit" target="_blank">🌐 View on GitHub</a>
-  </div>
+  <nav class="nav-bar">
+    <a href="#portal" class="nav-btn active">🖼️ Poster Portal</a>
+    <a href="poster-learning.html" class="nav-btn">📘 Learning Poster</a>
+    <a href="poster-qr.html" class="nav-btn">📱 Standalone QR Poster</a>
+    <a href="https://github.com/Pavank5214/iot-project-kit" target="_blank" class="nav-btn primary">💻 GitHub Repo</a>
+  </nav>
 
-  <div class="poster">
-    <div class="tag">OPEN SOURCE HARDWARE &amp; EMBEDDED SYSTEMS</div>
-    <h1 class="title">IoT PROJECT KIT</h1>
-    <div class="subtitle">30 Step-by-Step Hands-On Electronics Projects • Arduino Uno &amp; ESP32</div>
+  <div class="portal-container" id="portal">
+    <div class="header-section">
+      <div class="badge">Official Exhibition & Learning Hub</div>
+      <h1>IoT PROJECT KIT POSTERS</h1>
+      <p class="lead">Two specialized, publication-grade exhibition posters designed for maker fairs, university robotics laboratories, hardware symposiums, and engineering classrooms.</p>
+    </div>
 
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-num">30</div>
-        <div class="stat-label">Complete Projects</div>
+    <div class="posters-grid">
+      <!-- POSTER 1: EDUCATIONAL LEARNING POSTER -->
+      <div class="poster-showcase-card">
+        <div class="card-banner">
+          <img src="assets/iot-learning-poster.png" alt="Educational & Architecture Learning Poster" />
+        </div>
+        <div class="card-content">
+          <div class="card-tag">Poster 01 • Educational Reference</div>
+          <div class="card-title">IoT Architecture & Embedded Systems</div>
+          <div class="card-description">
+            A comprehensive, knowledge-rich infographic guide detailing the 4 core layers of IoT, deep technical comparison between Arduino Uno R3 and ESP32 Dev Module, hardware communication protocols (I2C, SPI, UART, PWM), transducer principles, and circuit prototyping safety rules.
+          </div>
+          <ul class="card-features">
+            <li>The 4 Core Layers of IoT (Perception, Edge, Connectivity, Action)</li>
+            <li>Arduino Uno vs ESP32 Side-by-Side Electrical Specs</li>
+            <li>I2C, SPI, UART, and PWM Bus Architectures</li>
+            <li>Sensor Transduction Theory & Active-LOW Relay Driving</li>
+            <li>Golden Rules of Circuit Prototyping & Electrical Safety</li>
+          </ul>
+          <div class="card-actions">
+            <a href="poster-learning.html" class="btn btn-cyan">View & Print Web Poster 🖨️</a>
+            <a href="assets/iot-learning-poster.png" target="_blank" class="btn btn-outline">Full Resolution PNG 🔍</a>
+          </div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num">13+</div>
-        <div class="stat-label">Sensors &amp; Actuators</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">USB 5V Powered</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">Wi-Fi</div>
-        <div class="stat-label">ESP32 Web Server</div>
+
+      <!-- POSTER 2: STANDALONE QR CODE POSTER -->
+      <div class="poster-showcase-card">
+        <div class="card-banner">
+          <img src="assets/qr-showcase-poster.png" alt="QR Code Exhibition Showcase Poster" />
+        </div>
+        <div class="card-content">
+          <div class="card-tag">Poster 02 • Scannable Exhibition Stand</div>
+          <div class="card-title">Official Repository QR Showcase Poster</div>
+          <div class="card-description">
+            A striking, high-contrast exhibition poster specifically designed for exhibition booths, maker tables, lab entry doors, and display stands. Features an ultra-crisp scannable QR code directing visitors straight to the open-source GitHub repository.
+          </div>
+          <ul class="card-features">
+            <li>High-Resolution Error-Corrected QR Code (Level H)</li>
+            <li>Instant camera scan without requiring special apps</li>
+            <li>Highlights complete wiring diagrams & production code</li>
+            <li>Clean design with NO project numbers and NO prices</li>
+            <li>Print-ready for tabletop display cards or A4/A3 lab posters</li>
+          </ul>
+          <div class="card-actions">
+            <a href="poster-qr.html" class="btn btn-cyan">View & Print QR Poster 🖨️</a>
+            <a href="assets/qr-showcase-poster.png" target="_blank" class="btn btn-outline">Full Resolution PNG 🔍</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="projects-grid">
-      <!-- Section 1 -->
-      <div class="category-box">
-        <div class="category-header cyan">
-          🚦 BASIC &amp; INTERACTIVE (01 - 07)
-        </div>
-        <ul class="project-list cyan">
-          <li class="project-item"><span class="proj-badge">01</span> LED Blinking (Basics &amp; Timing)</li>
-          <li class="project-item"><span class="proj-badge">02</span> Traffic Light Controller (3-State FSM)</li>
-          <li class="project-item"><span class="proj-badge">03</span> Rock Paper Scissors Game (OLED + Buttons)</li>
-          <li class="project-item"><span class="proj-badge">04</span> Electronic Die (7-Segment + RNG)</li>
-          <li class="project-item"><span class="proj-badge">05</span> RGB Mood Lamp (PWM Color Fading)</li>
-          <li class="project-item"><span class="proj-badge">06</span> Digital Stopwatch (OLED Lap Timer)</li>
-          <li class="project-item"><span class="proj-badge">07</span> Buzzer Reaction Game (Reflex Tester)</li>
-        </ul>
+    <footer>
+      <div>Pavank5214 / iot-project-kit • Open Source Hardware, Schematics & Documentation Collection</div>
+      <div style="margin-top: 6px;">
+        Designed for STEM Students, Maker Fairs, and Embedded Hardware Engineers •
+        <a href="https://github.com/Pavank5214/iot-project-kit" target="_blank">Explore on GitHub</a>
       </div>
-
-      <!-- Section 2 -->
-      <div class="category-box">
-        <div class="category-header emerald">
-          🌧️ ENVIRONMENTAL SENSORS (08-11, 15-18)
-        </div>
-        <ul class="project-list emerald">
-          <li class="project-item"><span class="proj-badge">08</span> Weather Monitor (DHT11 + OLED)</li>
-          <li class="project-item"><span class="proj-badge">09</span> Temperature Alarm (DHT11 Alert)</li>
-          <li class="project-item"><span class="proj-badge">10</span> Digital Distance Meter (HC-SR04)</li>
-          <li class="project-item"><span class="proj-badge">11</span> Smart Parking Indicator (Multi-Zone)</li>
-          <li class="project-item"><span class="proj-badge">15</span> Rain Alarm (Raindrop Sensor + Buzzer)</li>
-          <li class="project-item"><span class="proj-badge">16</span> Water Level Indicator (Depth Sensor)</li>
-          <li class="project-item"><span class="proj-badge">17</span> Water Leakage Alarm (Droplet Detection)</li>
-          <li class="project-item"><span class="proj-badge">18</span> Soil Moisture Meter (Agricultural Probe)</li>
-        </ul>
-      </div>
-
-      <!-- Section 3 -->
-      <div class="category-box">
-        <div class="category-header rose">
-          🛡️ SECURITY &amp; ALARMS (12-14, 19, 20, 29)
-        </div>
-        <ul class="project-list rose">
-          <li class="project-item"><span class="proj-badge">12</span> Motion Alarm (PIR Infrared Body Sensing)</li>
-          <li class="project-item"><span class="proj-badge">13</span> Door Security Alarm (Magnetic Reed Switch)</li>
-          <li class="project-item"><span class="proj-badge">14</span> Touchless Doorbell (Ultrasonic Wave)</li>
-          <li class="project-item"><span class="proj-badge">19</span> Flame Alarm (760-1100nm IR Fire Sensor)</li>
-          <li class="project-item"><span class="proj-badge">20</span> Gas &amp; Smoke Alarm (MQ-2 Sensor)</li>
-          <li class="project-item"><span class="proj-badge">29</span> Tilt Alarm (SW-520D Ball Tilt Switch)</li>
-        </ul>
-      </div>
-
-      <!-- Section 4 -->
-      <div class="category-box">
-        <div class="category-header purple">
-          🤖 AUTOMATION &amp; ACCESS (21-28, 30)
-        </div>
-        <ul class="project-list purple">
-          <li class="project-item"><span class="proj-badge">21</span> Automatic Night Lamp (LDR Dark Activated)</li>
-          <li class="project-item"><span class="proj-badge">22</span> Automatic Fan (DHT11 Climate Control)</li>
-          <li class="project-item"><span class="proj-badge">23</span> Smart Room Light (PIR + LDR Night Gate)</li>
-          <li class="project-item"><span class="proj-badge">24</span> Smart Street Light (Energy-Saving LDR)</li>
-          <li class="project-item"><span class="proj-badge">25</span> Smart Servo Door (Motorized Access)</li>
-          <li class="project-item"><span class="proj-badge">26</span> Keypad Door Lock (4x4 Matrix PIN)</li>
-          <li class="project-item"><span class="proj-badge">27</span> Smart RFID Door (13.56MHz RC522)</li>
-          <li class="project-item"><span class="proj-badge">28</span> Smart Touchless Dustbin (Ultrasonic Lid)</li>
-          <li class="project-item"><span class="proj-badge">30</span> Wi-Fi Temp Monitor (ESP32 Web Server)</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Footer with QR -->
-    <div class="poster-footer">
-      <img src="assets/qr-code.png" alt="Scan QR Code" class="qr-card-img">
-      <div class="footer-content">
-        <h3>ACCESS FULL SOURCE CODE &amp; SCHEMATICS</h3>
-        <p>Scan the QR code with any smartphone to open the GitHub repository:</p>
-        <a href="https://github.com/Pavank5214/iot-project-kit" target="_blank" class="repo-link">github.com/Pavank5214/iot-project-kit</a>
-        <div class="footer-features">
-          <span>⚡ Ready-to-Flash .ino Code</span>
-          <span>📐 High-Res Schematics</span>
-          <span>🧰 Complete Bill of Materials</span>
-          <span>📜 Open Source (MIT)</span>
-        </div>
-      </div>
-    </div>
+    </footer>
   </div>
 
 </body>
