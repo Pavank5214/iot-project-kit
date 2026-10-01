@@ -3,9 +3,9 @@
 Welcome to the **IoT Project Kit** repository! This collection contains step-by-step projects, circuit schematics, source code, and documentation designed for learning Internet of Things (IoT) and embedded systems hardware using **Arduino Uno**, **ESP32**, sensors, and actuators.
 
 <p align="center">
-  <img src="assets/iot-learning-poster.png" alt="IoT Architecture & Embedded Systems Learning Poster" width="480" />
+  <img src="assets/50-projects-iot-kit-poster.png" alt="50 Projects IoT Project Kit Exhibition Poster" width="460" />
   &nbsp;&nbsp;
-  <img src="assets/qr-showcase-poster.png" alt="IoT Project Kit QR Code Showcase Poster" width="340" />
+  <img src="assets/qr-showcase-poster.png" alt="IoT Project Kit QR Code Showcase Poster" width="310" />
 </p>
 <p align="center">
   <i>Scan the QR code on the poster or visit <a href="https://github.com/Pavank5214/iot-project-kit">github.com/Pavank5214/iot-project-kit</a> to explore all schematics, code, and documentation!</i>
@@ -19,6 +19,7 @@ Welcome to the **IoT Project Kit** repository! This collection contains step-by-
 iot-project-kit/
 │
 ├── assets/                            # Exhibition posters & scannable repository QR code
+│   ├── 50-projects-iot-kit-poster.png # 50 Projects product catalog & exhibition poster
 │   ├── iot-learning-poster.png        # Educational architecture & embedded systems learning poster
 │   ├── qr-showcase-poster.png         # Standalone QR exhibition poster (print-ready)
 │   ├── qr-code.png                    # High-resolution scannable QR code card
@@ -26,6 +27,7 @@ iot-project-kit/
 │   ├── poster-with-qr.png             # Exhibition poster with embedded scannable QR code
 │   └── project-catalog-poster.png     # Infographic catalog poster
 ├── poster.html                        # Exhibition poster portal & preview hub
+├── poster-50-projects.html            # Printable 50 projects product catalog poster (A4/A3)
 ├── poster-learning.html               # Printable educational architecture poster (A4/A3)
 ├── poster-qr.html                     # Printable standalone QR exhibition poster (A4/A3)
 ├── README.md                          # Main repository overview & index
@@ -191,13 +193,13 @@ iot-project-kit/
 
 ## 🖼️ Exhibition Posters & QR Code
 
-| 📘 Educational Learning Poster | 📱 Standalone QR Showcase Poster | 🔲 Scannable QR Card |
-| :---: | :---: | :---: |
-| [![Learning Poster](assets/iot-learning-poster.png)](assets/iot-learning-poster.png) | [![QR Poster](assets/qr-showcase-poster.png)](assets/qr-showcase-poster.png) | [![QR Card](assets/qr-code.png)](assets/qr-code.png) |
-| [View & Print Web Poster 📖](poster-learning.html) | [View & Print QR Poster 📱](poster-qr.html) | [High-Res PNG Card 🔍](assets/qr-code.png) |
+| ⭐ 50 Projects Product Poster | 📘 Educational Learning Poster | 📱 Standalone QR Showcase | 🔲 Scannable QR Card |
+| :---: | :---: | :---: | :---: |
+| [![50 Projects Poster](assets/50-projects-iot-kit-poster.png)](assets/50-projects-iot-kit-poster.png) | [![Learning Poster](assets/iot-learning-poster.png)](assets/iot-learning-poster.png) | [![QR Poster](assets/qr-showcase-poster.png)](assets/qr-showcase-poster.png) | [![QR Card](assets/qr-code.png)](assets/qr-code.png) |
+| [View & Print Poster ⭐](poster-50-projects.html) | [View & Print Poster 📖](poster-learning.html) | [View & Print QR 📱](poster-qr.html) | [High-Res PNG 🔍](assets/qr-code.png) |
 
-* **Central Exhibition Portal**: Open [`poster.html`](poster.html) to preview both posters and seamlessly switch between them.
-* **Direct Printing & PDF Export**: Open [`poster-learning.html`](poster-learning.html) or [`poster-qr.html`](poster-qr.html) in any modern browser and press <kbd>Ctrl</kbd> + <kbd>P</kbd> (<kbd>Cmd</kbd> + <kbd>P</kbd>) to print directly or export crisp, publication-grade A4/A3 PDFs for maker fairs, robotics symposiums, and engineering labs.
+* **Central Exhibition Portal**: Open [`poster.html`](poster.html) to preview all posters and toggle between them.
+* **Direct Printing & PDF Export**: Open [`poster-50-projects.html`](poster-50-projects.html), [`poster-learning.html`](poster-learning.html), or [`poster-qr.html`](poster-qr.html) in any modern browser and press <kbd>Ctrl</kbd> + <kbd>P</kbd> (<kbd>Cmd</kbd> + <kbd>P</kbd>) to print directly or export crisp, publication-grade A4/A3 PDFs for exhibitions, college maker fairs, robotics symposiums, and engineering labs.
 * **Direct Repository URL**: [https://github.com/Pavank5214/iot-project-kit](https://github.com/Pavank5214/iot-project-kit)
 
 ---

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IoT Project Kit — Exhibition Posters & Learning Portal</title>
+  <title>IoT Project Kit — Exhibition Posters & Showcase Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #080d1a;
@@ -14,8 +14,7 @@
       --card-border: #1e293b;
       --cyan: #38bdf8;
       --emerald: #34d399;
-      --purple: #a855f7;
-      --amber: #fbbf24;
+      --gold: #fbbf24;
       --rose: #f43f5e;
       --text: #f8fafc;
       --text-muted: #94a3b8;
@@ -58,14 +57,14 @@
       background: transparent;
       color: var(--text-muted);
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       border: 1px solid transparent;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 9999px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       transition: all 0.2s ease;
       text-decoration: none;
     }
@@ -77,20 +76,19 @@
     }
 
     .nav-btn.primary {
-      background: var(--cyan);
+      background: var(--gold);
       color: #020617;
-      border-color: var(--cyan);
+      border-color: var(--gold);
     }
 
     .nav-btn.primary:hover {
-      background: #7dd3fc;
+      background: #fde047;
       transform: translateY(-1px);
     }
 
-    /* Container */
     .portal-container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1260px;
     }
 
     .header-section {
@@ -104,20 +102,20 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--cyan);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(251, 191, 36, 0.1);
+      color: var(--gold);
+      border: 1px solid rgba(251, 191, 36, 0.3);
       padding: 6px 18px;
       border-radius: 9999px;
       margin-bottom: 16px;
     }
 
     h1 {
-      font-size: 40px;
-      font-weight: 800;
+      font-size: 42px;
+      font-weight: 900;
       letter-spacing: -0.5px;
       margin-bottom: 10px;
-      background: linear-gradient(135deg, #ffffff 40%, var(--cyan) 100%);
+      background: linear-gradient(135deg, #ffffff 40%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -125,16 +123,16 @@
     p.lead {
       font-size: 17px;
       color: var(--text-muted);
-      max-width: 750px;
+      max-width: 800px;
       margin: 0 auto;
       line-height: 1.6;
     }
 
-    /* Poster Preview Cards Grid */
+    /* 3-Posters Grid */
     .posters-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
       margin-bottom: 40px;
     }
 
@@ -162,7 +160,6 @@
       justify-content: center;
       align-items: center;
       border-bottom: 1px solid var(--card-border);
-      position: relative;
     }
 
     .card-banner img {
@@ -178,7 +175,7 @@
     }
 
     .card-content {
-      padding: 28px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -189,34 +186,37 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: var(--cyan);
       margin-bottom: 8px;
     }
 
+    .tag-gold { color: var(--gold); }
+    .tag-cyan { color: var(--cyan); }
+    .tag-green { color: var(--emerald); }
+
     .card-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .card-description {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 24px;
+      line-height: 1.55;
+      margin-bottom: 18px;
       flex-grow: 1;
     }
 
     .card-features {
       list-style: none;
-      margin-bottom: 24px;
-      font-size: 13px;
+      margin-bottom: 20px;
+      font-size: 12px;
       color: #cbd5e1;
     }
 
     .card-features li {
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -230,22 +230,29 @@
 
     .card-actions {
       display: flex;
-      gap: 12px;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .card-actions .btn {
-      flex: 1;
+      width: 100%;
       text-align: center;
       justify-content: center;
-      padding: 10px 18px;
-      font-size: 14px;
+      padding: 10px 16px;
+      font-size: 13px;
       font-weight: 700;
-      border-radius: 12px;
+      border-radius: 10px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #020617;
+    }
+    .btn-gold:hover { background: #fde047; }
 
     .btn-cyan {
       background: var(--cyan);
@@ -260,7 +267,6 @@
     }
     .btn-outline:hover { background: #334155; }
 
-    /* Footer */
     footer {
       text-align: center;
       padding-top: 32px;
@@ -270,12 +276,12 @@
     }
 
     footer a {
-      color: var(--cyan);
+      color: var(--gold);
       text-decoration: none;
       font-weight: 600;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1050px) {
       .posters-grid {
         grid-template-columns: 1fr;
       }
@@ -286,36 +292,62 @@
 
   <nav class="nav-bar">
     <a href="#portal" class="nav-btn active">🖼️ Poster Portal</a>
-    <a href="poster-learning.html" class="nav-btn">📘 Learning Poster</a>
+    <a href="poster-50-projects.html" class="nav-btn">⭐ 50 Projects Poster</a>
+    <a href="poster-learning.html" class="nav-btn">📘 Learning Architecture</a>
     <a href="poster-qr.html" class="nav-btn">📱 Standalone QR Poster</a>
     <a href="https://github.com/Pavank5214/iot-project-kit" target="_blank" class="nav-btn primary">💻 GitHub Repo</a>
   </nav>
 
   <div class="portal-container" id="portal">
     <div class="header-section">
-      <div class="badge">Official Exhibition & Learning Hub</div>
+      <div class="badge">Official Exhibition & Showcase Portal</div>
       <h1>IoT PROJECT KIT POSTERS</h1>
-      <p class="lead">Two specialized, publication-grade exhibition posters designed for maker fairs, university robotics laboratories, hardware symposiums, and engineering classrooms.</p>
+      <p class="lead">Select from three specialized, publication-grade exhibition posters created for science exhibitions, college maker fairs, robotics symposiums, and engineering labs.</p>
     </div>
 
     <div class="posters-grid">
-      <!-- POSTER 1: EDUCATIONAL LEARNING POSTER -->
+      <!-- POSTER 1: 50 PROJECTS PRODUCT CATALOG POSTER -->
+      <div class="poster-showcase-card">
+        <div class="card-banner">
+          <img src="assets/50-projects-iot-kit-poster.png" alt="50 Projects IoT Project Kit Exhibition Poster" />
+        </div>
+        <div class="card-content">
+          <div class="card-tag tag-gold">Poster 01 • Product & Catalog</div>
+          <div class="card-title">50 Projects IoT Project Kit</div>
+          <div class="card-description">
+            The complete visual product exhibition poster showcasing the hardware kit box, components breakdown, 30 Easy Projects + 20 Medium Projects, What You'll Learn skills card, and 5 sample circuit photo cards.
+          </div>
+          <ul class="card-features">
+            <li>Arduino Uno + ESP32 Dual-Board Setup</li>
+            <li>30 Easy Projects + 20 Medium Projects</li>
+            <li>What's Inside Component Chips & Kit Photo</li>
+            <li>Sample Project Cards with Real Circuit Photos</li>
+            <li>Approx. Price Badge & Target Audience Tags</li>
+          </ul>
+          <div class="card-actions">
+            <a href="poster-50-projects.html" class="btn btn-gold">View & Print Web Poster 🖨️</a>
+            <a href="assets/50-projects-iot-kit-poster.png" target="_blank" class="btn btn-outline">Full Resolution PNG 🔍</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- POSTER 2: EDUCATIONAL LEARNING POSTER -->
       <div class="poster-showcase-card">
         <div class="card-banner">
           <img src="assets/iot-learning-poster.png" alt="Educational & Architecture Learning Poster" />
         </div>
         <div class="card-content">
-          <div class="card-tag">Poster 01 • Educational Reference</div>
-          <div class="card-title">IoT Architecture & Embedded Systems</div>
+          <div class="card-tag tag-cyan">Poster 02 • Educational Reference</div>
+          <div class="card-title">IoT Architecture & Systems</div>
           <div class="card-description">
-            A comprehensive, knowledge-rich infographic guide detailing the 4 core layers of IoT, deep technical comparison between Arduino Uno R3 and ESP32 Dev Module, hardware communication protocols (I2C, SPI, UART, PWM), transducer principles, and circuit prototyping safety rules.
+            A comprehensive technical infographic primer detailing the 4 core layers of IoT, Arduino Uno vs ESP32 specs, hardware communication buses (I2C, SPI, UART, PWM), and circuit prototyping safety rules.
           </div>
           <ul class="card-features">
-            <li>The 4 Core Layers of IoT (Perception, Edge, Connectivity, Action)</li>
-            <li>Arduino Uno vs ESP32 Side-by-Side Electrical Specs</li>
-            <li>I2C, SPI, UART, and PWM Bus Architectures</li>
-            <li>Sensor Transduction Theory & Active-LOW Relay Driving</li>
-            <li>Golden Rules of Circuit Prototyping & Electrical Safety</li>
+            <li>4-Layer IoT Architecture Framework</li>
+            <li>Arduino Uno vs ESP32 Electrical Benchmark</li>
+            <li>I2C, SPI, UART & PWM Technical Guides</li>
+            <li>Transducer Theory & Active-LOW Relays</li>
+            <li>Golden Rules of Prototyping & Voltage Safety</li>
           </ul>
           <div class="card-actions">
             <a href="poster-learning.html" class="btn btn-cyan">View & Print Web Poster 🖨️</a>
@@ -324,26 +356,26 @@
         </div>
       </div>
 
-      <!-- POSTER 2: STANDALONE QR CODE POSTER -->
+      <!-- POSTER 3: STANDALONE QR CODE POSTER -->
       <div class="poster-showcase-card">
         <div class="card-banner">
           <img src="assets/qr-showcase-poster.png" alt="QR Code Exhibition Showcase Poster" />
         </div>
         <div class="card-content">
-          <div class="card-tag">Poster 02 • Scannable Exhibition Stand</div>
-          <div class="card-title">Official Repository QR Showcase Poster</div>
+          <div class="card-tag tag-green">Poster 03 • Scannable Stand</div>
+          <div class="card-title">Repository QR Showcase</div>
           <div class="card-description">
-            A striking, high-contrast exhibition poster specifically designed for exhibition booths, maker tables, lab entry doors, and display stands. Features an ultra-crisp scannable QR code directing visitors straight to the open-source GitHub repository.
+            A dedicated, high-contrast exhibition poster specifically designed for exhibition tables, booth kiosks, and lab entry doors with a huge scannable QR code directing visitors to the GitHub repository.
           </div>
           <ul class="card-features">
-            <li>High-Resolution Error-Corrected QR Code (Level H)</li>
-            <li>Instant camera scan without requiring special apps</li>
-            <li>Highlights complete wiring diagrams & production code</li>
-            <li>Clean design with NO project numbers and NO prices</li>
-            <li>Print-ready for tabletop display cards or A4/A3 lab posters</li>
+            <li>Large High-Resolution QR Code (Error Correction H)</li>
+            <li>Instant scan via any standard smartphone camera</li>
+            <li>No project numbers or prices for timeless display</li>
+            <li>Highlights circuit diagrams & production code</li>
+            <li>Ready for tabletop stand or A4/A3 wall mounting</li>
           </ul>
           <div class="card-actions">
-            <a href="poster-qr.html" class="btn btn-cyan">View & Print QR Poster 🖨️</a>
+            <a href="poster-qr.html" class="btn btn-outline">View & Print QR Poster 🖨️</a>
             <a href="assets/qr-showcase-poster.png" target="_blank" class="btn btn-outline">Full Resolution PNG 🔍</a>
           </div>
         </div>
